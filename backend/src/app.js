@@ -6,9 +6,10 @@ const helmet = require('helmet')
 const app = express()
 
 app.use(helmet())
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : []
 const corsOrigin = process.env.NODE_ENV === 'development'
   ? (origin, cb) => cb(null, true)
-  : process.env.CORS_ORIGIN
+  : (origin, cb) => (!origin || allowedOrigins.includes(origin) ? cb(null, true) : cb(new Error('CORS')))
 app.use(cors({ origin: corsOrigin, credentials: true }))
 
 // Payments (webhook precisa de raw body — deve vir antes do express.json())
