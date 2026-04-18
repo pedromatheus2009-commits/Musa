@@ -1,0 +1,222 @@
+.page {
+  max-width: 760px;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.pageSubtitle {
+  color: var(--white-muted);
+  font-size: 0.85rem;
+  margin-bottom: 36px;
+}
+
+/* Create post card */
+.createCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 130, 0.15);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.createCard h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+
+.createForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.imagePreview {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  max-height: 280px;
+  background: var(--black-soft);
+}
+
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.removeImg {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.removeImg:hover { background: rgba(244, 67, 54, 0.8); }
+
+.createActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.uploadImageBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(201, 168, 130, 0.35);
+  color: var(--nude);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+}
+
+.uploadImageBtn:hover { background: rgba(201, 168, 130, 0.08); }
+.uploadImageBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.createError {
+  font-size: 0.8rem;
+  color: #f44336;
+}
+
+/* Posts list */
+.postsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.postsHeader h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--white);
+}
+
+.postCount {
+  font-size: 0.72rem;
+  color: var(--gray-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.postCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 130, 0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.postCard:hover { border-color: rgba(201, 168, 130, 0.25); }
+
+.postCardImage {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.postCardBody {
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.postCardText {
+  flex: 1;
+  min-width: 0;
+}
+
+.postCardTitle {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.postCardContent {
+  font-size: 0.83rem;
+  color: var(--white-muted);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.postCardDate {
+  font-size: 0.72rem;
+  color: var(--gray-light);
+  margin-top: 8px;
+  letter-spacing: 0.04em;
+}
+
+.postCardActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.iconBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: background var(--transition-fast);
+  color: var(--white-muted);
+}
+
+.iconBtn:hover { background: rgba(255, 255, 255, 0.08); color: var(--white); }
+.iconBtn.danger:hover { background: rgba(244, 67, 54, 0.15); color: #f44336; }
+
+.empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--gray-light);
+  font-size: 0.85rem;
+}
+
+.empty span {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.loading {
+  text-align: center;
+  padding: 48px;
+  color: var(--white-muted);
+  font-size: 0.85rem;
+}

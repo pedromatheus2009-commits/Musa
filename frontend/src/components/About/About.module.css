@@ -1,0 +1,55 @@
+.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wine-light); font-weight: 600; margin-bottom: 14px; }
+.title { color: var(--white); margin-bottom: 24px; }
+.body { font-size: 0.92rem; line-height: 1.9; color: var(--white-muted); margin-bottom: 20px; }
+.quote {
+  border-left: 2px solid var(--wine);
+  padding-left: 20px;
+  margin-top: 32px;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--nude-light);
+  line-height: 1.6;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.statCard {
+  background: var(--black-card);
+  border: 1px solid rgba(201,168,130,0.15);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  text-align: center;
+}
+.statNum {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--nude);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.statLabel { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-light); }
+.missionCard {
+  background: linear-gradient(135deg, rgba(139,44,74,0.15), rgba(139,44,74,0.05));
+  border: 1px solid rgba(139,44,74,0.25);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--white-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .inner { grid-template-columns: 1fr; }
+}

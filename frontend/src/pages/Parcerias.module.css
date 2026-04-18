@@ -1,0 +1,177 @@
+.page {
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+.pageHeader {
+  padding: clamp(48px, 6vw, 80px) 0 clamp(32px, 4vw, 56px);
+  text-align: center;
+  border-bottom: 1px solid rgba(201, 168, 130, 0.1);
+  background: linear-gradient(180deg, rgba(184, 67, 110, 0.06) 0%, transparent 100%);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wine-light);
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: var(--white-muted);
+  font-size: 1rem;
+}
+
+/* Benefits grid */
+.beneficiosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.beneficioCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 130, 0.12);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  transition: border-color var(--transition);
+}
+
+.beneficioCard:hover {
+  border-color: rgba(184, 67, 110, 0.35);
+}
+
+.beneficioIcon {
+  font-size: 1.6rem;
+  color: var(--wine-light);
+  margin-bottom: 14px;
+}
+
+.beneficioTitulo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.beneficioDesc {
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  line-height: 1.6;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201, 168, 130, 0.2), transparent);
+}
+
+/* Form section */
+.formSection {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.formEyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wine-light);
+  margin-bottom: 12px;
+}
+
+.formTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.formDesc {
+  color: var(--white-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.contatos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contatoItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--white-muted);
+}
+
+.contatoIcon {
+  color: var(--nude);
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(201, 168, 130, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.errorMsg {
+  font-size: 0.8rem;
+  color: #f44336;
+}
+
+.successBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(201, 168, 130, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 48px 32px;
+  gap: 16px;
+}
+
+.successIcon {
+  font-size: 2.5rem;
+  color: var(--wine-light);
+}
+
+.successTitle {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .formSection { grid-template-columns: 1fr; gap: 32px; }
+  .formRow { grid-template-columns: 1fr; }
+}

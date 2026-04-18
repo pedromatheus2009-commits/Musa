@@ -1,0 +1,38 @@
+.wrap {
+  max-width: 640px;
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--white);
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.sub {
+  color: var(--white-muted);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.error {
+  color: var(--wine-light);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+}

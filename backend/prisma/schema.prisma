@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                       String               @id @default(uuid())
+  email                    String               @unique
+  password                 String
+  nome                     String               @db.VarChar(100)
+  isAdmin                  Boolean              @default(false) @map("is_admin")
+  stripeCustomerId         String?              @unique @map("stripe_customer_id")
+  subscriptionId           String?              @unique @map("subscription_id")
+  subscriptionStatus       String?              @map("subscription_status")
+  subscriptionPeriodEnd    DateTime?            @map("subscription_period_end")
+  createdAt                DateTime             @default(now()) @map("created_at")
+  updatedAt                DateTime             @updatedAt @map("updated_at")
+  profile                  Profile?
+  feedPosts                FeedPost[]
+  passwordResetTokens      PasswordResetToken[]
+
+  @@map("users")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("password_reset_tokens")
+}
+
+model Profile {
+  id         String            @id @default(uuid())
+  userId     String            @unique @map("user_id")
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nome       String            @db.VarChar(100)
+  role       String
+  bio        String?           @db.Text
+  cidade     String?
+  whatsapp   String?           @db.VarChar(20)
+  preco      String?           @db.VarChar(50)
+  fotoUrl    String?           @map("foto_url")
+  ativo      Boolean           @default(true)
+  aprovado   Boolean           @default(false)
+  createdAt  DateTime          @default(now()) @map("created_at")
+  updatedAt  DateTime          @updatedAt @map("updated_at")
+  services   Service[]
+  categories ProfileCategory[]
+  reviews    Review[]
+  posts      Post[]
+
+  @@map("profiles")
+}
+
+model Service {
+  id        String  @id @default(uuid())
+  profileId String  @map("profile_id")
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  nome      String
+
+  @@map("services")
+}
+
+model Category {
+  id       Int               @id @default(autoincrement())
+  nome     String            @unique
+  profiles ProfileCategory[]
+
+  @@map("categories")
+}
+
+model ProfileCategory {
+  profileId  String   @map("profile_id")
+  categoryId Int      @map("category_id")
+  profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([profileId, categoryId])
+  @@map("profile_categories")
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  profileId  String   @map("profile_id")
+  profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  autorNome  String   @map("autor_nome")
+  nota       Int
+  comentario String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("reviews")
+}
+
+model FeedPost {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  titulo    String   @db.VarChar(200)
+  conteudo  String?  @db.Text
+  imagemUrl String?  @map("imagem_url")
+  videoUrl  String?  @map("video_url")
+  publicado Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("feed_posts")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  profileId String   @map("profile_id")
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  titulo    String?  @db.VarChar(200)
+  conteudo  String?  @db.Text
+  imagemUrl String?  @map("imagem_url")
+  videoUrl  String?  @map("video_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("posts")
+}
+
+model Partnership {
+  id        String   @id @default(uuid())
+  nome      String   @db.VarChar(200)
+  empresa   String   @db.VarChar(200)
+  email     String   @db.VarChar(200)
+  tipo      String   @db.VarChar(100)
+  mensagem  String   @db.Text
+  lida      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("partnerships")
+}

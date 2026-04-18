@@ -1,0 +1,213 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeIn 0.25s ease;
+}
+
+.header {
+  background: var(--black-soft);
+  border-bottom: 1px solid rgba(201, 168, 130, 0.15);
+  padding: 0 clamp(20px, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.headerLogo {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+.headerLogo span {
+  color: var(--wine-light);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userName {
+  font-size: 0.75rem;
+  color: var(--nude);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.adminBadge {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(184, 67, 110, 0.2);
+  border: 1px solid rgba(184, 67, 110, 0.4);
+  color: var(--wine-light);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.adminItem {
+  border-top: 1px solid rgba(184, 67, 110, 0.15);
+  margin-top: 8px;
+  padding-top: 16px;
+  color: var(--wine-light) !important;
+}
+
+.adminItem.active {
+  color: var(--wine-light) !important;
+  border-left-color: var(--wine-light) !important;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(201, 168, 130, 0.3);
+  color: var(--white-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+}
+
+.closeBtn:hover {
+  border-color: var(--nude);
+  color: var(--nude);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 220px;
+  background: var(--black-soft);
+  border-right: 1px solid rgba(201, 168, 130, 0.1);
+  padding: 32px 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+  transition: all var(--transition-fast);
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  color: var(--nude);
+  background: rgba(201, 168, 130, 0.05);
+}
+
+.navItem.active {
+  color: var(--nude);
+  border-left-color: var(--wine);
+  background: rgba(201, 168, 130, 0.07);
+}
+
+.navIcon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: clamp(24px, 4vw, 48px) clamp(20px, 5vw, 60px);
+}
+
+.noProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 16px;
+  text-align: center;
+}
+
+.noProfile h3 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--white);
+}
+
+.noProfile p {
+  color: var(--white-muted);
+  max-width: 380px;
+}
+
+/* Mobile sidebar */
+.mobileTabs {
+  display: none;
+  background: var(--black-soft);
+  border-bottom: 1px solid rgba(201, 168, 130, 0.1);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.mobileTabs::-webkit-scrollbar { display: none; }
+
+.mobileTabList {
+  display: flex;
+  padding: 0 16px;
+}
+
+.mobileTab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.mobileTab.active {
+  color: var(--nude);
+  border-bottom-color: var(--wine);
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .mobileTabs { display: block; }
+  .body { flex-direction: column; }
+  .headerRight .userName { display: none; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
