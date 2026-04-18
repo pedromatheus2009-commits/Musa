@@ -1,0 +1,80 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--black);
+}
+
+.card {
+  background: var(--black-card);
+  border: 1px solid rgba(201, 168, 130, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-style: italic;
+  color: var(--nude);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo span { color: var(--wine); }
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--white);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.desc {
+  font-size: 0.85rem;
+  color: var(--white-muted);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.error {
+  font-size: 0.82rem;
+  color: #e57373;
+}
+
+.successBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.successIcon {
+  font-size: 2.5rem;
+  color: var(--wine-light);
+}
+
+.successTitle {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--white);
+}
+
+.successDesc {
+  font-size: 0.88rem;
+  color: var(--white-muted);
+  line-height: 1.65;
+  margin-bottom: 8px;
+}

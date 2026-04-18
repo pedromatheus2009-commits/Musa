@@ -1,0 +1,145 @@
+.header { text-align: center; margin-bottom: 48px; }
+.eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wine-light); font-weight: 600; margin-bottom: 14px; }
+.title { color: var(--white); }
+.subtitle { max-width: 500px; margin: 16px auto 0; font-size: 0.95rem; }
+
+/* Filter bar */
+.filterBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.filterInput {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,130,0.2);
+  border-radius: var(--radius-full);
+  color: var(--white);
+  padding: 11px 20px;
+  font-size: 0.88rem;
+  transition: border-color var(--transition-fast);
+}
+.filterInput:focus { outline: none; border-color: var(--nude); }
+.filterInput::placeholder { color: var(--gray-light); }
+.filterSelect {
+  min-width: 160px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,130,0.2);
+  border-radius: var(--radius-full);
+  color: var(--white);
+  padding: 11px 20px;
+  font-size: 0.88rem;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+.filterSelect:focus { outline: none; border-color: var(--nude); }
+.filterSelect option { background: var(--black-card); }
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* Pro Card */
+.card {
+  background: var(--black-card);
+  border: 1px solid rgba(201,168,130,0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.card:hover { border-color: rgba(139,44,74,0.45); transform: translateY(-5px); box-shadow: var(--shadow-elevated); }
+.cardTop {
+  padding: 28px 24px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.avatarImg { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.cardInfo { flex: 1; min-width: 0; }
+.cardName {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--white);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cardRole {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wine-light);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.cardCity { font-size: 0.78rem; color: var(--gray-light); }
+.cardBody { padding: 0 24px 20px; }
+.cardPrice {
+  font-size: 0.82rem;
+  color: var(--nude);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.cardFooter {
+  border-top: 1px solid rgba(201,168,130,0.08);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.viewBtn {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--nude);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color var(--transition-fast);
+}
+.card:hover .viewBtn { color: var(--nude-light); }
+.viewArrow { transition: transform var(--transition-fast); }
+.card:hover .viewArrow { transform: translateX(4px); }
+
+/* Skeleton */
+.skeleton { animation: pulse 1.5s ease-in-out infinite; }
+.skeletonAvatar { width: 58px; height: 58px; border-radius: 50%; background: rgba(255,255,255,0.07); }
+.skeletonLine { height: 12px; border-radius: 4px; background: rgba(255,255,255,0.07); margin-bottom: 8px; }
+.skeletonLine.short { width: 60%; }
+
+/* Empty state */
+.empty { grid-column: 1/-1; text-align: center; padding: 60px 0; }
+.emptyIcon { font-size: 3rem; margin-bottom: 16px; }
+.emptyTitle { font-family: var(--font-serif); font-size: 1.5rem; color: var(--white); margin-bottom: 8px; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1 }
+  50%       { opacity: 0.4 }
+}
+
+@media (max-width: 600px) {
+  .filterBar { flex-direction: column; }
+  .filterInput, .filterSelect { min-width: 100%; }
+}
