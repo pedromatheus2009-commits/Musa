@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUSA — Vitrine de Mulheres Extraordinárias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:   #0c0a09;
+      --offblack: #141210;
+      --card:    #1a1714;
+      --nude:    #c9a882;
+      --nude-lt: #e8d5be;
+      --wine:    #8b2c4a;
+      --wine-lt: #c44d70;
+      --white:   #faf7f4;
+      --gray:    #6b6460;
+      --gray-lt: #a09890;
+      --border:  rgba(201,168,130,0.18);
+      --border-strong: rgba(201,168,130,0.38);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    .serif { font-family: 'Cormorant Garamond', serif; }
+    h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.15; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--nude); border-radius: 2px; }
+
+    /* ─── UTILITIES ─── */
+    .nude   { color: var(--nude); }
+    .wine   { color: var(--wine-lt); }
+    .muted  { color: var(--gray-lt); }
+    .hidden { display: none !important; }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 60px;
+      background: linear-gradient(to bottom, rgba(12,10,9,0.97), rgba(12,10,9,0));
+      transition: background 0.4s;
+    }
+    nav.scrolled { background: rgba(12,10,9,0.97); border-bottom: 1px solid var(--border); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300; letter-spacing: 0.35em;
+      color: var(--nude-lt); text-decoration: none;
+    }
+    .nav-logo span { color: var(--wine-lt); }
+
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gray-lt); text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--nude-lt); }
+
+    .btn-nav {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      color: var(--nude-lt);
+      padding: 9px 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-nav:hover { background: var(--nude); color: var(--black); }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-block;
+      background: var(--nude);
+      color: var(--black);
+      padding: 14px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+      border: none; cursor: pointer; border-radius: 2px;
+      transition: background 0.3s, transform 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--nude-lt); transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--nude-lt);
+      padding: 13px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase;
+      border: 1px solid var(--border-strong); cursor: pointer; border-radius: 2px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { background: rgba(201,168,130,0.1); transform: translateY(-2px); }
+
+    .btn-wine {
+      display: inline-block;
+      background: var(--wine);
+      color: var(--white);
+      padding: 14px 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      border: none; cursor: pointer; border-radius: 2px;
+      transition: background 0.3s, transform 0.2s;
+      text-decoration: none;
+    }
+    .btn-wine:hover { background: var(--wine-lt); transform: translateY(-2px); }
+
+    /* ─── HERO ─── */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 60px 80px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(139,44,74,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201,168,130,0.1) 0%, transparent 50%),
+        var(--black);
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(139,44,74,0.06) 100%);
+    }
+
+    /* Decorative lines */
+    .hero-lines {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+    }
+    .hero-lines::before {
+      content: '';
+      position: absolute; top: 15%; left: 55%;
+      width: 1px; height: 55%;
+      background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    }
+    .hero-lines::after {
+      content: '';
+      position: absolute; top: 30%; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border) 40%, transparent);
+    }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--nude); margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 40px; height: 1px; background: var(--nude);
+    }
+
+    .hero-title {
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 300; line-height: 1.02;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .hero-title em { font-style: italic; color: var(--nude-lt); }
+
+    .hero-subtitle-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 3vw, 28px); font-weight: 300; font-style: italic;
+      color: var(--gray-lt); margin-bottom: 32px; letter-spacing: 0.02em;
+    }
+
+    .hero-desc {
+      font-size: 14px; font-weight: 300; color: var(--gray-lt);
+      max-width: 500px; line-height: 1.8; margin-bottom: 48px;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-float {
+      position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+      z-index: 1;
+    }
+    .hero-float-card {
+      width: 240px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px;
+      animation: floatCard 4s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .hfc-avatar {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--wine), var(--nude));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--white);
+      margin-bottom: 14px;
+    }
+    .hfc-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; margin-bottom: 2px; }
+    .hfc-role { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--nude); margin-bottom: 12px; }
+    .hfc-tag {
+      display: inline-block; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(201,168,130,0.1); border: 1px solid var(--border);
+      color: var(--nude-lt); padding: 4px 10px; border-radius: 2px; margin: 2px 2px 0 0;
+    }
+    .hfc-badge {
+      margin-top: 14px; display: flex; align-items: center; gap: 6px;
+      font-size: 10px; color: var(--nude);
+    }
+    .hfc-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; }
+
+    /* ─── SECTION BASE ─── */
+    section { position: relative; z-index: 1; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--nude); margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+    }
+    .section-eyebrow::before, .section-eyebrow::after {
+      content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--border-strong);
+    }
+    .section-title { font-size: clamp(36px, 5vw, 56px); font-weight: 300; }
+    .section-title em { font-style: italic; color: var(--nude-lt); }
+    .section-sub { font-size: 14px; color: var(--gray-lt); margin-top: 12px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 80px 0;
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    #como-funciona { padding: 100px 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .step-card {
+      background: var(--card); border: 1px solid var(--border);
+      padding: 48px 36px; position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .step-card:hover { border-color: var(--border-strong); transform: translateY(-4px); }
+    .step-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--wine), var(--nude));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+    }
+    .step-card:hover::before { transform: scaleX(1); }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px; font-weight: 300; font-style: italic;
+      color: rgba(201,168,130,0.15); line-height: 1;
+      position: absolute; top: 20px; right: 28px;
+    }
+    .step-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 24px;
+    }
+    .step-title { font-size: 22px; font-weight: 300; margin-bottom: 12px; }
+    .step-desc { font-size: 13px; color: var(--gray-lt); line-height: 1.7; }
+
+    /* ─── PROFESSIONALS GRID ─── */
+    #profissionais { padding: 100px 0; }
+
+    .filter-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 48px; padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-wrap {
+      flex: 1; min-width: 220px;
+      position: relative;
+    }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; stroke: var(--gray); fill: none; stroke-width: 2;
+    }
+    .search-input {
+      width: 100%; background: var(--card); border: 1px solid var(--border);
+      color: var(--white); padding: 11px 16px 11px 38px; border-radius: 2px;
+      font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 300;
+      outline: none; transition: border-color 0.3s;
+    }
+    .search-input:focus { border-color: var(--nude); }
+    .search-input::placeholder { color: var(--gray); }
+
+    .filter-select {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--gray-lt); padding: 11px 32px 11px 14px;
+      border-radius: 2px; font-family: 'Montserrat', sans-serif;
+      font-size: 12px; font-weight: 300; outline: none; cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%23a09890' stroke-width='1.5'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
+      transition: border-color 0.3s;
+    }
+    .filter-select:focus { border-color: var(--nude); }
+
+    .pros-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px; background: var(--border);
+    }
+
+    .pro-card {
+      background: var(--offblack);
+      padding: 32px 28px;
+      cursor: pointer;
+      transition: background 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .pro-card:hover { background: var(--card); }
+    .pro-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--wine), var(--nude));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+    }
+    .pro-card:hover::after { transform: scaleX(1); }
+
+    .pro-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300;
+      color: var(--white); margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .pro-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300; margin-bottom: 2px;
+    }
+    .pro-role {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--nude); margin-bottom: 10px;
+    }
+    .pro-city {
+      font-size: 11px; color: var(--gray-lt); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .pro-desc { font-size: 12px; color: var(--gray-lt); line-height: 1.7; margin-bottom: 16px; }
+    .pro-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+    .pro-tag {
+      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(201,168,130,0.07); border: 1px solid var(--border);
+      color: var(--nude-lt); padding: 4px 10px; border-radius: 1px;
+    }
+    .pro-price { font-size: 11px; color: var(--gray-lt); margin-bottom: 20px; }
+    .pro-price span { color: var(--nude); font-weight: 500; }
+    .pro-actions { display: flex; gap: 8px; }
+    .btn-whats {
+      flex: 1; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.3);
+      color: #4ade80; padding: 9px; border-radius: 2px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.3s; text-align: center; text-decoration: none;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+    }
+    .btn-whats:hover { background: rgba(74,222,128,0.2); }
+    .btn-ver {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--nude-lt); padding: 9px 16px; border-radius: 2px;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-ver:hover { border-color: var(--nude); color: var(--nude); }
+
+    /* empty state */
+    .no-results {
+      grid-column: 1/-1; text-align: center; padding: 80px;
+      color: var(--gray-lt); font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-style: italic;
+    }
+
+    /* ─── MODAL PERFIL ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(12,10,9,0.92);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 4px; max-width: 560px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      transform: translateY(24px); transition: transform 0.3s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-header {
+      padding: 40px 40px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 20px; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      background: none; border: none; color: var(--gray-lt);
+      font-size: 22px; cursor: pointer; line-height: 1;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--nude); }
+    .modal-avatar {
+      width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 30px;
+      color: var(--white); border: 1px solid var(--border);
+    }
+    .modal-info .modal-name { font-size: 28px; font-weight: 300; margin-bottom: 2px; }
+    .modal-info .modal-role { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nude); }
+    .modal-info .modal-city { font-size: 12px; color: var(--gray-lt); margin-top: 6px; }
+    .modal-body { padding: 32px 40px; }
+    .modal-section-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--nude); margin-bottom: 10px; margin-top: 24px;
+    }
+    .modal-desc { font-size: 13px; color: var(--gray-lt); line-height: 1.8; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .modal-tag {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(201,168,130,0.08); border: 1px solid var(--border);
+      color: var(--nude-lt); padding: 5px 12px; border-radius: 2px;
+    }
+    .modal-footer { padding: 24px 40px 40px; border-top: 1px solid var(--border); display: flex; gap: 12px; }
+
+    /* ─── ANUNCIAR ─── */
+    #anunciar { padding: 100px 0; }
+    .anunciar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+
+    .anunciar-left {
+      background: var(--card); padding: 64px 56px;
+    }
+    .anunciar-left h2 { font-size: clamp(36px, 4vw, 52px); margin-bottom: 20px; }
+    .anunciar-left p { font-size: 14px; color: var(--gray-lt); line-height: 1.8; margin-bottom: 32px; }
+
+    .benefit-list { list-style: none; margin-bottom: 40px; }
+    .benefit-list li {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 13px; padding: 12px 0;
+      border-bottom: 1px solid var(--border); color: var(--gray-lt);
+    }
+    .benefit-list li:last-child { border-bottom: none; }
+    .benefit-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 13px;
+    }
+
+    .anunciar-right { background: var(--offblack); padding: 64px 56px; }
+    .form-title { font-size: 26px; font-weight: 300; margin-bottom: 8px; }
+    .form-sub { font-size: 12px; color: var(--gray-lt); margin-bottom: 32px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--nude); margin-bottom: 8px;
+    }
+    .form-input, .form-textarea, .form-select-f {
+      width: 100%; background: var(--card); border: 1px solid var(--border);
+      color: var(--white); padding: 12px 16px; border-radius: 2px;
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300;
+      outline: none; transition: border-color 0.3s;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select-f:focus { border-color: var(--nude); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--gray); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-select-f {
+      appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%23a09890' stroke-width='1.5'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+    }
+    .form-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-note { font-size: 11px; color: var(--gray); margin-top: 8px; }
+    .form-success {
+      display: none; text-align: center; padding: 40px 20px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .form-success .fs-icon { font-size: 48px; margin-bottom: 16px; }
+    .form-success h3 { font-size: 30px; font-weight: 300; margin-bottom: 10px; color: var(--nude-lt); }
+    .form-success p { font-size: 13px; color: var(--gray-lt); }
+
+    /* ─── AUTH MODAL ─── */
+    .auth-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(12,10,9,0.95); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .auth-overlay.open { opacity: 1; pointer-events: all; }
+    .auth-box {
+      background: var(--card); border: 1px solid var(--border-strong);
+      border-radius: 4px; padding: 56px 48px; max-width: 440px; width: 100%;
+      transform: scale(0.96); transition: transform 0.3s;
+    }
+    .auth-overlay.open .auth-box { transform: scale(1); }
+    .auth-logo {
+      font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300;
+      letter-spacing: 0.3em; color: var(--nude-lt); text-align: center; margin-bottom: 6px;
+    }
+    .auth-logo span { color: var(--wine-lt); }
+    .auth-tagline { text-align: center; font-size: 11px; color: var(--gray-lt); letter-spacing: 0.1em; margin-bottom: 36px; }
+    .auth-tabs { display: flex; gap: 0; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .auth-tab {
+      flex: 1; background: none; border: none; color: var(--gray-lt);
+      padding: 12px; font-family: 'Montserrat', sans-serif;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: color 0.3s; border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .auth-tab.active { color: var(--nude); border-bottom-color: var(--nude); }
+    .auth-close {
+      position: absolute; display: none;
+    }
+
+    /* ─── ABOUT ─── */
+    #sobre { padding: 100px 0; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual {
+      position: relative;
+    }
+    .about-bg-block {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--wine) 0%, var(--nude) 60%, rgba(201,168,130,0.3) 100%);
+      border-radius: 2px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-bg-block::before {
+      content: 'M';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 280px; font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,0.07); line-height: 1;
+    }
+    .about-stat-card {
+      position: absolute; bottom: -20px; right: -24px;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 20px 24px; border-radius: 2px;
+    }
+    .about-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--nude); }
+    .about-stat-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-lt); }
+
+    .about-text h2 { font-size: clamp(32px, 4vw, 50px); margin-bottom: 24px; }
+    .about-text p { font-size: 14px; color: var(--gray-lt); line-height: 1.9; margin-bottom: 20px; }
+    .about-values { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .about-value {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      border: 1px solid var(--border); color: var(--nude-lt);
+      padding: 8px 18px; border-radius: 2px;
+    }
+
+    /* ─── CONTACT ─── */
+    #contato { padding: 100px 0; }
+    .contact-inner {
+      max-width: 600px; margin: 0 auto; text-align: center;
+    }
+    .contact-inner h2 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; }
+    .contact-inner p { font-size: 14px; color: var(--gray-lt); margin-bottom: 40px; line-height: 1.8; }
+
+    .contact-form { text-align: left; }
+    .contact-btns { display: flex; justify-content: center; gap: 12px; margin-top: 8px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 60px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300;
+      letter-spacing: 0.3em; color: var(--nude-lt);
+    }
+    .footer-logo span { color: var(--wine-lt); }
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gray-lt); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--nude); }
+    .footer-copy { font-size: 11px; color: var(--gray); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; animation: fadeUp 0.8s ease forwards; }
+    .d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.25s; }
+    .d3 { animation-delay: 0.4s; } .d4 { animation-delay: 0.55s; }
+    .d5 { animation-delay: 0.7s; }
+
+    /* ─── MOBILE NAV ─── */
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-burger span { display: block; width: 22px; height: 1px; background: var(--nude-lt); margin: 5px 0; transition: 0.3s; }
+    .nav-mobile { display: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      .nav-burger { display: block; }
+      .hero-float { display: none; }
+      #home { padding: 120px 24px 80px; }
+      .section-inner { padding: 0 24px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .anunciar-grid { grid-template-columns: 1fr; }
+      .anunciar-left, .anunciar-right { padding: 48px 32px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+      .form-grid2 { grid-template-columns: 1fr; }
+      .auth-box { padding: 40px 28px; }
+      .modal-header, .modal-body, .modal-footer { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav id="main-nav">
+  <a href="#home" class="nav-logo">MU<span>SA</span></a>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#profissionais">Profissionais</a>
+    <a href="#anunciar">Quero anunciar</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+    <button class="btn-nav" onclick="openAuth('login')">Entrar</button>
+  </div>
+  <button class="nav-burger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow fade-up d1">Plataforma feminina premium</p>
+    <h1 class="hero-title fade-up d2">
+      MUSA<br>
+      <em>vitrine de mulheres</em><br>
+      extraordinárias
+    </h1>
+    <p class="hero-subtitle-line fade-up d3">
+      onde talento encontra visibilidade
+    </p>
+    <p class="hero-desc fade-up d4">
+      Descubra profissionais únicas, divulgue seu trabalho e fortaleça conexões femininas com elegância e autonomia. Uma plataforma criada por mulheres, para mulheres.
+    </p>
+    <div class="hero-actions fade-up d5">
+      <a href="#profissionais" class="btn-primary">Encontrar profissionais</a>
+      <a href="#anunciar" class="btn-outline">Quero anunciar</a>
+    </div>
+  </div>
+
+  <!-- floating card -->
+  <div class="hero-float">
+    <div class="hero-float-card">
+      <div class="hfc-avatar">L</div>
+      <div class="hfc-name">Luciana Moraes</div>
+      <div class="hfc-role">Fotógrafa</div>
+      <span class="hfc-tag">Retrato</span>
+      <span class="hfc-tag">Moda</span>
+      <span class="hfc-tag">São Paulo</span>
+      <div class="hfc-badge">
+        <span class="hfc-dot"></span>
+        Disponível agora
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════ COMO FUNCIONA ══════════════════ -->
+<section id="como-funciona">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Como funciona</div>
+      <h2 class="section-title">Simples assim,<br><em>poderoso assim</em></h2>
+      <p class="section-sub">Três passos para você estar visível para quem precisa dos seus serviços.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <div class="step-icon">✦</div>
+        <h3 class="step-title serif">Cadastre-se</h3>
+        <p class="step-desc">Crie sua conta em minutos. Preencha seus dados básicos e escolha como quer se apresentar para o mundo.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <div class="step-icon">◈</div>
+        <h3 class="step-title serif">Crie seu perfil</h3>
+        <p class="step-desc">Monte sua vitrine com fotos, descrição, serviços, localização e contato. Mostre o que te torna única.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <div class="step-icon">◎</div>
+        <h3 class="step-title serif">Seja encontrada</h3>
+        <p class="step-desc">Seu perfil aparece no marketplace para clientes que buscam exatamente o que você oferece. Conexão direta, sem intermediários.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════ PROFISSIONAIS ══════════════════ -->
+<section id="profissionais">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Marketplace</div>
+      <h2 class="section-title">Profissionais em<br><em>destaque</em></h2>
+      <p class="section-sub">Encontre a profissional perfeita para o que você precisa.</p>
+    </div>
+
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input" id="search-input" placeholder="Buscar por nome ou serviço…" oninput="filterPros()">
+      </div>
+      <select class="filter-select" id="filter-cat" onchange="filterPros()">
+        <option value="">Todas as categorias</option>
+        <option>Beleza & Estética</option>
+        <option>Fotografia</option>
+        <option>Design & Arte</option>
+        <option>Saúde & Bem-estar</option>
+        <option>Moda & Estilo</option>
+        <option>Educação & Coaching</option>
+        <option>Gastronomia</option>
+        <option>Tecnologia</option>
+      </select>
+      <select class="filter-select" id="filter-city" onchange="filterPros()">
+        <option value="">Todas as cidades</option>
+        <option>São Paulo</option>
+        <option>Rio de Janeiro</option>
+        <option>Belo Horizonte</option>
+        <option>Curitiba</option>
+        <option>Porto Alegre</option>
+        <option>Salvador</option>
+      </select>
+    </div>
+
+    <div class="pros-grid" id="pros-grid">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════ ANUNCIAR ══════════════════ -->
+<section id="anunciar">
+  <div class="section-inner">
+    <div class="anunciar-grid">
+      <div class="anunciar-left">
+        <div class="section-eyebrow" style="justify-content:flex-start;margin-bottom:16px">
+          Anuncie
+        </div>
+        <h2 class="serif">Sua vitrine<br><em>te espera.</em></h2>
+        <p>Transforme seu talento em presença digital. Cadastre seus serviços e seja encontrada por quem mais precisa de você — de forma elegante, segura e autônoma.</p>
+        <ul class="benefit-list">
+          <li><span class="benefit-icon">✦</span> Perfil completo com foto, bio e serviços</li>
+          <li><span class="benefit-icon">◈</span> Contato direto via WhatsApp — sem taxas</li>
+          <li><span class="benefit-icon">◎</span> Filtros de busca por categoria e cidade</li>
+          <li><span class="benefit-icon">✧</span> Visibilidade para todo o Brasil</li>
+          <li><span class="benefit-icon">⬡</span> Futuro: avaliações e destaque premium</li>
+        </ul>
+        <button class="btn-primary" onclick="openAuth('register')">Criar minha conta grátis</button>
+      </div>
+      <div class="anunciar-right">
+        <div id="form-container">
+          <h3 class="form-title serif">Crie seu anúncio</h3>
+          <p class="form-sub">Preencha as informações do seu perfil profissional.</p>
+          <form id="announce-form" onsubmit="submitForm(event)">
+            <div class="form-grid2">
+              <div class="form-group">
+                <label>Nome completo *</label>
+                <input type="text" class="form-input" id="f-nome" placeholder="Seu nome" required>
+              </div>
+              <div class="form-group">
+                <label>WhatsApp *</label>
+                <input type="text" class="form-input" id="f-whats" placeholder="(11) 99999-9999" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Categoria *</label>
+              <select class="form-select-f" id="f-cat" required>
+                <option value="">Selecione sua área</option>
+                <option>Beleza & Estética</option>
+                <option>Fotografia</option>
+                <option>Design & Arte</option>
+                <option>Saúde & Bem-estar</option>
+                <option>Moda & Estilo</option>
+                <option>Educação & Coaching</option>
+                <option>Gastronomia</option>
+                <option>Tecnologia</option>
+                <option>Outra</option>
+              </select>
+            </div>
+            <div class="form-grid2">
+              <div class="form-group">
+                <label>Cidade</label>
+                <input type="text" class="form-input" id="f-cidade" placeholder="Sua cidade">
+              </div>
+              <div class="form-group">
+                <label>Faixa de preço</label>
+                <input type="text" class="form-input" id="f-preco" placeholder="Ex: R$ 150–300">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Serviços oferecidos *</label>
+              <input type="text" class="form-input" id="f-servicos" placeholder="Ex: Manicure, pedicure, alongamento…" required>
+            </div>
+            <div class="form-group">
+              <label>Sua bio / descrição</label>
+              <textarea class="form-textarea" id="f-bio" placeholder="Conte um pouco sobre você e seu trabalho…"></textarea>
+            </div>
+            <div class="form-group">
+              <label>E-mail</label>
+              <input type="email" class="form-input" id="f-email" placeholder="seu@email.com">
+              <p class="form-note">Usado apenas para login — não aparece no perfil público.</p>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;text-align:center;padding:15px">
+              Publicar meu perfil
+            </button>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="fs-icon">✦</div>
+            <h3>Perfil publicado!</h3>
+            <p class="muted">Seu perfil já aparece na lista de profissionais.<br>Bem-vinda à MUSA.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════ SOBRE ══════════════════ -->
+<section id="sobre">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-bg-block"></div>
+        <div class="about-stat-card">
+          <div class="about-stat-num">+420</div>
+          <div class="about-stat-label">Mulheres conectadas</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-eyebrow" style="justify-content:flex-start;margin-bottom:16px">Nossa missão</div>
+        <h2 class="serif">Uma plataforma criada para <em>celebrar</em> o poder feminino</h2>
+        <p>A MUSA nasceu da crença de que toda mulher tem um talento que merece ser visto. Somos um marketplace sofisticado que conecta profissionais femininas a clientes que valorizam o trabalho delas.</p>
+        <p>Mais do que um catálogo, somos uma comunidade. Um espaço seguro onde autonomia financeira e elegância caminham juntas.</p>
+        <div class="about-values">
+          <span class="about-value">Autonomia</span>
+          <span class="about-value">Elegância</span>
+          <span class="about-value">Confiança</span>
+          <span class="about-value">Comunidade</span>
+          <span class="about-value">Exclusividade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════ CONTATO ══════════════════ -->
+<section id="contato">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-eyebrow">Contato</div>
+      <h2 class="serif">Vamos <em>conversar?</em></h2>
+      <p>Tem dúvidas, sugestões ou quer conhecer melhor a plataforma? Adoramos ouvir mulheres que querem fazer parte da MUSA.</p>
+      <div class="contact-form">
+        <div class="form-grid2">
+          <div class="form-group">
+            <label>Seu nome</label>
+            <input type="text" class="form-input" placeholder="Nome completo">
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" class="form-input" placeholder="seu@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mensagem</label>
+          <textarea class="form-textarea" placeholder="Como podemos ajudar?"></textarea>
+        </div>
+        <div class="contact-btns">
+          <button class="btn-primary">Enviar mensagem</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-logo">MU<span>SA</span></div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#profissionais">Profissionais</a>
+    <a href="#anunciar">Anunciar</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <div class="footer-copy">© 2025 MUSA. Todos os direitos reservados.</div>
+</footer>
+
+
+<!-- ══════════════════ MODAL PERFIL ══════════════════ -->
+<div class="modal-overlay" id="pro-modal" onclick="closeModal(event)">
+  <div class="modal" id="pro-modal-box">
+    <div class="modal-header" id="modal-header">
+      <button class="modal-close" onclick="closeProModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════ AUTH MODAL ══════════════════ -->
+<div class="auth-overlay" id="auth-overlay" onclick="closeAuthOutside(event)">
+  <div class="auth-box">
+    <div class="auth-logo">MU<span>SA</span></div>
+    <p class="auth-tagline">sua vitrine começa aqui</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Entrar</button>
+      <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Cadastrar</button>
+    </div>
+
+    <!-- Login -->
+    <div id="auth-login">
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" class="form-input" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+      </div>
+      <button class="btn-primary" style="width:100%;text-align:center;padding:14px;margin-top:8px" onclick="closeAuth()">Entrar na MUSA</button>
+      <p style="text-align:center;font-size:11px;color:var(--gray);margin-top:16px;cursor:pointer" onclick="switchTab('register')">Ainda não tem conta? <span style="color:var(--nude)">Cadastre-se</span></p>
+    </div>
+
+    <!-- Register -->
+    <div id="auth-register" class="hidden">
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" class="form-input" placeholder="Seu nome completo">
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" class="form-input" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" class="form-input" placeholder="Crie uma senha forte">
+      </div>
+      <button class="btn-primary" style="width:100%;text-align:center;padding:14px;margin-top:8px" onclick="closeAuth()">Criar conta grátis</button>
+      <p style="text-align:center;font-size:11px;color:var(--gray);margin-top:16px;cursor:pointer" onclick="switchTab('login')">Já tem conta? <span style="color:var(--nude)">Entrar</span></p>
+    </div>
+
+    <p style="text-align:center;margin-top:24px">
+      <button onclick="closeAuth()" style="background:none;border:none;font-size:11px;color:var(--gray);cursor:pointer;letter-spacing:0.1em">Fechar ✕</button>
+    </p>
+  </div>
+</div>
+
+
+<script>
+// ─── DATA ───
+const professionals = [
+  { id:1, nome:'Camila Rezende', role:'Fotógrafa', cidade:'São Paulo', cat:'Fotografia',
+    bio:'Especializada em fotografia de retrato e moda editorial. Capturo a essência de cada pessoa com sensibilidade e arte.',
+    servicos:['Ensaio fotográfico','Fotografia de moda','Retrato corporativo'],
+    preco:'R$ 300–800', whats:'5511999990001', emoji:'C',
+    grad:'linear-gradient(135deg,#8b2c4a,#c9a882)' },
+  { id:2, nome:'Fernanda Duarte', role:'Designer de Interiores', cidade:'Rio de Janeiro', cat:'Design & Arte',
+    bio:'Transformo ambientes em experiências únicas. Minimalismo com personalidade, funcionalidade com beleza.',
+    servicos:['Projeto residencial','Consultoria online','Home staging'],
+    preco:'R$ 500–2.000', whats:'5521999990002', emoji:'F',
+    grad:'linear-gradient(135deg,#2d4a6b,#7aa8c9)' },
+  { id:3, nome:'Isabela Santos', role:'Terapeuta Holística', cidade:'Belo Horizonte', cat:'Saúde & Bem-estar',
+    bio:'Integro terapias naturais para o equilíbrio do corpo, mente e alma. Especialista em meditação e reiki.',
+    servicos:['Reiki','Meditação guiada','Terapia floral'],
+    preco:'R$ 150–300', whats:'5531999990003', emoji:'I',
+    grad:'linear-gradient(135deg,#2d6b4a,#7ac9a8)' },
+  { id:4, nome:'Larissa Vidal', role:'Stylist & Personal Shopper', cidade:'São Paulo', cat:'Moda & Estilo',
+    bio:'Ajudo mulheres a descobrirem seu estilo autêntico e construírem um guarda-roupa que as representa de verdade.',
+    servicos:['Personal styling','Consultoria de imagem','Compras assistidas'],
+    preco:'R$ 250–600', whats:'5511999990004', emoji:'L',
+    grad:'linear-gradient(135deg,#6b4a2d,#c9a87a)' },
+  { id:5, nome:'Mariana Torres', role:'Chef & Confeiteira', cidade:'Curitiba', cat:'Gastronomia',
+    bio:'Gastronomia com alma. Crío experiências gastronômicas para eventos e ofereço bolos artísticos para ocasiões especiais.',
+    servicos:['Bolos artísticos','Buffet para eventos','Aulas de confeitaria'],
+    preco:'R$ 200–1.500', whats:'5541999990005', emoji:'M',
+    grad:'linear-gradient(135deg,#6b2d4a,#c97aa8)' },
+  { id:6, nome:'Patricia Lemos', role:'Dev & UX Designer', cidade:'Porto Alegre', cat:'Tecnologia',
+    bio:'Desenvolvimento de produtos digitais centrados no usuário. Especialista em React e design de interfaces intuitivas.',
+    servicos:['Desenvolvimento web','UI/UX design','Consultoria digital'],
+    preco:'R$ 400–1.200', whats:'5551999990006', emoji:'P',
+    grad:'linear-gradient(135deg,#2d2d6b,#7a7ac9)' },
+  { id:7, nome:'Renata Oliveira', role:'Coach de Carreira', cidade:'São Paulo', cat:'Educação & Coaching',
+    bio:'Ajudo mulheres a alcançarem clareza profissional, confiança e resultados reais. Metodologia baseada em evidências.',
+    servicos:['Coaching individual','Workshops','Mentoria em grupo'],
+    preco:'R$ 300–800', whats:'5511999990007', emoji:'R',
+    grad:'linear-gradient(135deg,#4a6b2d,#a8c97a)' },
+  { id:8, nome:'Sofia Mendes', role:'Esteticista & Maquiadora', cidade:'Salvador', cat:'Beleza & Estética',
+    bio:'Arte e beleza a serviço da sua autoestima. Especializada em maquiagem artística e tratamentos faciais premium.',
+    servicos:['Maquiagem artística','Skincare','Design de sobrancelha'],
+    preco:'R$ 100–400', whats:'5571999990008', emoji:'S',
+    grad:'linear-gradient(135deg,#6b4a6b,#c9a8c9)' },
+];
+
+// ─── RENDER PROS ───
+function renderPros(list) {
+  const grid = document.getElementById('pros-grid');
+  grid.innerHTML = '';
+  if (!list.length) {
+    grid.innerHTML = '<p class="no-results">Nenhuma profissional encontrada...</p>';
+    return;
+  }
+  list.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'pro-card';
+    card.innerHTML = `
+      <div class="pro-avatar" style="background:${p.grad}">${p.emoji}</div>
+      <div class="pro-name">${p.nome}</div>
+      <div class="pro-role">${p.role}</div>
+      <div class="pro-city">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        ${p.cidade}
+      </div>
+      <div class="pro-desc">${p.bio.substring(0,90)}…</div>
+      <div class="pro-tags">${p.servicos.slice(0,3).map(s=>`<span class="pro-tag">${s}</span>`).join('')}</div>
+      <div class="pro-price">A partir de <span>${p.preco}</span></div>
+      <div class="pro-actions">
+        <a class="btn-whats" href="https://wa.me/${p.whats}" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp
+        </a>
+        <button class="btn-ver" onclick='openProModal(${JSON.stringify(p).replace(/'/g,"\\'")} )'>Ver perfil</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ─── FILTER ───
+function filterPros() {
+  const q    = document.getElementById('search-input').value.toLowerCase();
+  const cat  = document.getElementById('filter-cat').value;
+  const city = document.getElementById('filter-city').value;
+  const filtered = professionals.filter(p => {
+    const matchQ    = !q || p.nome.toLowerCase().includes(q) || p.role.toLowerCase().includes(q) || p.servicos.some(s=>s.toLowerCase().includes(q));
+    const matchCat  = !cat  || p.cat === cat;
+    const matchCity = !city || p.cidade === city;
+    return matchQ && matchCat && matchCity;
+  });
+  renderPros(filtered);
+}
+
+// ─── PRO MODAL ───
+function openProModal(p) {
+  const header = document.getElementById('modal-header');
+  header.innerHTML = `
+    <button class="modal-close" onclick="closeProModal()">✕</button>
+    <div class="modal-avatar" style="background:${p.grad}">${p.emoji}</div>
+    <div class="modal-info">
+      <div class="modal-name serif">${p.nome}</div>
+      <div class="modal-role">${p.role}</div>
+      <div class="modal-city">📍 ${p.cidade}</div>
+    </div>
+  `;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section-label">Sobre</div>
+    <p class="modal-desc">${p.bio}</p>
+    <div class="modal-section-label">Serviços</div>
+    <div class="modal-tags">${p.servicos.map(s=>`<span class="modal-tag">${s}</span>`).join('')}</div>
+    <div class="modal-section-label">Faixa de preço</div>
+    <p class="modal-desc" style="color:var(--nude)">${p.preco}</p>
+  `;
+  document.getElementById('modal-footer').innerHTML = `
+    <a class="btn-wine" href="https://wa.me/${p.whats}" target="_blank" style="flex:1;text-align:center">Contatar no WhatsApp</a>
+    <button class="btn-outline" onclick="closeProModal()">Fechar</button>
+  `;
+  document.getElementById('pro-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('pro-modal')) closeProModal();
+}
+function closeProModal() {
+  document.getElementById('pro-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── AUTH ───
+function openAuth(tab) {
+  document.getElementById('auth-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchTab(tab || 'login');
+}
+function closeAuth() {
+  document.getElementById('auth-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeAuthOutside(e) {
+  if (e.target === document.getElementById('auth-overlay')) closeAuth();
+}
+function switchTab(tab) {
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+  document.getElementById('auth-login').classList.toggle('hidden', tab!=='login');
+  document.getElementById('auth-register').classList.toggle('hidden', tab!=='register');
+}
+
+// ─── FORM SUBMIT ───
+function submitForm(e) {
+  e.preventDefault();
+  const nome     = document.getElementById('f-nome').value.trim();
+  const whats    = document.getElementById('f-whats').value.trim();
+  const cat      = document.getElementById('f-cat').value;
+  const cidade   = document.getElementById('f-cidade').value.trim();
+  const preco    = document.getElementById('f-preco').value.trim();
+  const servicos = document.getElementById('f-servicos').value.trim();
+  const bio      = document.getElementById('f-bio').value.trim();
+
+  if (!nome || !whats || !cat || !servicos) return;
+
+  const grads = [
+    'linear-gradient(135deg,#8b2c4a,#c9a882)',
+    'linear-gradient(135deg,#2d4a6b,#7aa8c9)',
+    'linear-gradient(135deg,#6b4a2d,#c9a87a)',
+    'linear-gradient(135deg,#4a2d6b,#a87ac9)',
+  ];
+
+  const newPro = {
+    id: professionals.length + 1,
+    nome, role: cat, cidade: cidade || 'Brasil', cat,
+    bio: bio || 'Profissional da MUSA.',
+    servicos: servicos.split(',').map(s=>s.trim()).slice(0,4),
+    preco: preco || 'Consultar',
+    whats: '55' + whats.replace(/\D/g,''),
+    emoji: nome.charAt(0).toUpperCase(),
+    grad: grads[Math.floor(Math.random()*grads.length)]
+  };
+
+  professionals.push(newPro);
+  renderPros(professionals);
+
+  document.getElementById('announce-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ─── MOBILE NAV ───
+let mobileOpen = false;
+function toggleMobileNav() {
+  mobileOpen = !mobileOpen;
+  // simple: scroll to top for now — in a real build you'd show a drawer
+  if (mobileOpen) {
+    document.getElementById('main-nav').style.background = 'var(--offblack)';
+  } else {
+    document.getElementById('main-nav').style.background = '';
+  }
+}
+
+// ─── INIT ───
+renderPros(professionals);
+</script>
+</body>
+</html>
