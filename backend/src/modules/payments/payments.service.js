@@ -1,6 +1,7 @@
 const Stripe = require('stripe')
 const prisma = require('../../config/database')
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const eventosService = require('../eventos/eventos.service')
 
 const PRICE_ID = process.env.STRIPE_PRICE_ID
 const CLIENT_URL = process.env.CORS_ORIGIN || 'http://localhost:5173'
@@ -83,11 +84,17 @@ async function handleWebhook(rawBody, signature) {
 
   switch (event.type) {
     case 'checkout.session.completed': {
-      if (sub.mode !== 'subscription') break
-      const customerId = sub.customer
-      const subscriptionId = sub.subscription
-      const subscription = await stripe.subscriptions.retrieve(subscriptionId)
-      await _updateUserSubscription(customerId, subscription)
+      if (sub.mode === 'subscription') {
+        const subscription = await stripe.subscriptions.retrieve(sub.subscription)
+        await _updateUserSubscription(sub.customer, subscription)
+      } else if (sub.mode === 'payment' && sub.metadata?.inscricaoId) {
+        await eventosService.confirmarInscricaoPorSessao(sub)
+      }
+      break
+    }
+
+    case 'checkout.session.expired': {
+      if (sub.metadata?.inscricaoId) await eventosService.expirarSessao(sub)
       break
     }
 

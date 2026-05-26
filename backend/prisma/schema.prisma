@@ -22,6 +22,8 @@ model User {
   profile                  Profile?
   feedPosts                FeedPost[]
   passwordResetTokens      PasswordResetToken[]
+  eventos                  Evento[]
+  bauItens                 BauItem[]
 
   @@map("users")
 }
@@ -34,6 +36,7 @@ model PasswordResetToken {
   expiresAt DateTime @map("expires_at")
   createdAt DateTime @default(now()) @map("created_at")
 
+  @@index([userId])
   @@map("password_reset_tokens")
 }
 
@@ -57,6 +60,7 @@ model Profile {
   reviews    Review[]
   posts      Post[]
 
+  @@index([ativo, aprovado, createdAt])
   @@map("profiles")
 }
 
@@ -66,6 +70,7 @@ model Service {
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   nome      String
 
+  @@index([profileId])
   @@map("services")
 }
 
@@ -84,6 +89,7 @@ model ProfileCategory {
   category   Category @relation(fields: [categoryId], references: [id])
 
   @@id([profileId, categoryId])
+  @@index([categoryId])
   @@map("profile_categories")
 }
 
@@ -96,6 +102,7 @@ model Review {
   comentario String?  @db.Text
   createdAt  DateTime @default(now()) @map("created_at")
 
+  @@index([profileId])
   @@map("reviews")
 }
 
@@ -111,6 +118,8 @@ model FeedPost {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([userId])
+  @@index([publicado, createdAt])
   @@map("feed_posts")
 }
 
@@ -125,6 +134,7 @@ model Post {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([profileId])
   @@map("posts")
 }
 
@@ -138,5 +148,72 @@ model Partnership {
   lida      Boolean  @default(false)
   createdAt DateTime @default(now()) @map("created_at")
 
+  @@index([lida, createdAt])
   @@map("partnerships")
+}
+
+model Evento {
+  id          String      @id @default(uuid())
+  tipo        String      // oficina | aula | evento
+  titulo      String      @db.VarChar(200)
+  descricao   String?     @db.Text
+  dataHora    DateTime    @map("data_hora")
+  duracaoMin  Int?        @map("duracao_min")
+  local       String?
+  online      Boolean     @default(false)
+  linkOnline  String?     @map("link_online")
+  preco       Int         // centavos (BRL)
+  vagas       Int
+  imagemUrl   String?     @map("imagem_url")
+  status      String      @default("rascunho") // rascunho | publicado | lotado | encerrado | cancelado
+  createdById String      @map("created_by_id")
+  createdBy   User        @relation(fields: [createdById], references: [id])
+  inscricoes  Inscricao[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@index([status, dataHora])
+  @@index([createdById])
+  @@map("eventos")
+}
+
+model Inscricao {
+  id                String    @id @default(uuid())
+  eventoId          String    @map("evento_id")
+  evento            Evento    @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  nome              String    @db.VarChar(150)
+  email             String    @db.VarChar(200)
+  whatsapp          String    @db.VarChar(20)
+  status            String    @default("aguardando_pagamento") // aguardando_pagamento | confirmada | cancelada | expirada
+  origem            String    @default("online") // online | manual
+  valorPago         Int?      @map("valor_pago")
+  stripeSessionId   String?   @unique @map("stripe_session_id")
+  holdExpiresAt     DateTime? @map("hold_expires_at")
+  lembreteEnviadoEm DateTime? @map("lembrete_enviado_em")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  @@index([eventoId, status])
+  @@index([status, holdExpiresAt])
+  @@map("inscricoes")
+}
+
+model BauItem {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  titulo    String   @db.VarChar(150)
+  descricao String?  @db.Text
+  preco     Int?     // centavos (BRL); null = somente troca
+  tipo      String   // venda | troca
+  categoria String?
+  fotos     String[]
+  whatsapp  String   @db.VarChar(20)
+  status    String   @default("pendente") // pendente | aprovado | vendido | recusado
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@index([userId])
+  @@map("bau_itens")
 }

@@ -17,6 +17,7 @@ async function list({ includeUnpublished = false } = {}) {
     where: includeUnpublished ? {} : { publicado: true },
     select: postSelect,
     orderBy: { createdAt: 'desc' },
+    take: 100,
   })
 }
 

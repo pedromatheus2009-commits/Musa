@@ -61,7 +61,6 @@ async function uploadPostVideo(req, res) {
     return res.json({ url: 'https://www.w3schools.com/html/mov_bbb.mp4' })
   }
 
-  const { createClient } = require('@supabase/supabase-js')
   const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY)
   const { error } = await supabase.storage
     .from(process.env.SUPABASE_STORAGE_BUCKET)

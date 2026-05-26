@@ -8,19 +8,26 @@ import AdminFeed from './tabs/AdminFeed'
 import AdminProfiles from './tabs/AdminProfiles'
 import AdminAnalytics from './tabs/AdminAnalytics'
 import AdminPartnerships from './tabs/AdminPartnerships'
+import AdminEventos from './tabs/AdminEventos'
+import MeuBau from './tabs/MeuBau'
+import AdminBau from './tabs/AdminBau'
 import Assinatura from './tabs/Assinatura'
 import styles from './Dashboard.module.css'
 
 const USER_TABS = [
   { id: 'profile', label: 'Meu Perfil', icon: '👤' },
   { id: 'posts', label: 'Publicações', icon: '📝' },
+  { id: 'meubau', label: 'Meu Baú', icon: '🛍' },
   { id: 'assinatura', label: 'Assinatura', icon: '◈' },
 ]
 
 const ADMIN_TABS = [
   { id: 'profile', label: 'Meu Perfil', icon: '👤' },
   { id: 'posts', label: 'Publicações', icon: '📝' },
+  { id: 'meubau', label: 'Meu Baú', icon: '🛍' },
   { id: 'assinatura', label: 'Assinatura', icon: '◈' },
+  { id: 'eventos', label: 'Eventos', icon: '🎟', adminOnly: true },
+  { id: 'modbau', label: 'Moderar Baú', icon: '🛒', adminOnly: true },
   { id: 'feed', label: 'Feed MUSA', icon: '✦', adminOnly: true },
   { id: 'perfis', label: 'Gerenciar Perfis', icon: '✔', adminOnly: true },
   { id: 'analytics', label: 'Resultados', icon: '◉', adminOnly: true },
@@ -102,7 +109,10 @@ export default function Dashboard({ onClose, onOpenAnnounce }) {
                   : <EditProfile profile={profile} onProfileUpdated={setProfile} />
               )}
               {tab === 'posts' && <MyPosts profile={profile} />}
+              {tab === 'meubau' && <MeuBau />}
               {tab === 'assinatura' && <Assinatura />}
+              {tab === 'eventos' && user?.isAdmin && <AdminEventos />}
+              {tab === 'modbau' && user?.isAdmin && <AdminBau />}
               {tab === 'feed' && user?.isAdmin && <AdminFeed />}
               {tab === 'perfis' && user?.isAdmin && <AdminProfiles />}
               {tab === 'analytics' && user?.isAdmin && <AdminAnalytics />}

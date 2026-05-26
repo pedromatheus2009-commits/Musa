@@ -49,9 +49,9 @@ async function list({ q, categoria, cidade, estado, page = 1, limit = 12 }) {
 async function findById(id) {
   const profile = await prisma.profile.findUnique({
     where: { id },
-    select: { ...profileSelect, reviews: { orderBy: { createdAt: 'desc' }, take: 20 }, posts: { select: { id: true, titulo: true, conteudo: true, imagemUrl: true, createdAt: true }, orderBy: { createdAt: 'desc' } } },
+    select: { ...profileSelect, aprovado: true, reviews: { orderBy: { createdAt: 'desc' }, take: 20 }, posts: { select: { id: true, titulo: true, conteudo: true, imagemUrl: true, createdAt: true }, orderBy: { createdAt: 'desc' } } },
   })
-  if (!profile || !profile.ativo) {
+  if (!profile || !profile.ativo || !profile.aprovado) {
     const err = new Error('Perfil não encontrado')
     err.status = 404
     throw err

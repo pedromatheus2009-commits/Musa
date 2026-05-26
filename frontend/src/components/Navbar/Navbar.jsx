@@ -4,6 +4,8 @@ import styles from './Navbar.module.css'
 
 const links = [
   { label: 'Profissionais', to: '/profissionais' },
+  { label: 'Agenda', to: '/agenda' },
+  { label: 'Baú', to: '/bau' },
   { label: 'Feed', to: '/feed' },
   { label: 'Parcerias', to: '/parcerias' },
   { label: 'Sobre', to: '/sobre' },

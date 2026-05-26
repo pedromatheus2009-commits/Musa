@@ -9,6 +9,8 @@ import Dashboard from './components/Dashboard/Dashboard'
 
 import Home from './pages/Home'
 import Profissionais from './pages/Profissionais'
+import Agenda from './pages/Agenda'
+import Bau from './pages/Bau'
 import Sobre from './pages/Sobre'
 import Feed from './pages/Feed'
 import Parcerias from './pages/Parcerias'
@@ -50,6 +52,8 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home onAuthRequired={() => setAuthOpen(true)} />} />
         <Route path="/profissionais" element={<Profissionais />} />
+        <Route path="/agenda" element={<Agenda />} />
+        <Route path="/bau" element={<Bau />} />
         <Route path="/anunciar" element={<Anunciar onAuthRequired={() => setAuthOpen(true)} />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/parcerias" element={<Parcerias />} />

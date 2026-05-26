@@ -1,5 +1,8 @@
 const { Resend } = require('resend')
 
+const esc = (s) => String(s ?? '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
 async function sendContact(req, res) {
   const { nome, email, mensagem } = req.body
 
@@ -12,8 +15,8 @@ async function sendContact(req, res) {
   const { error } = await resend.emails.send({
     from: 'MUSA <noreply@musacasa.com.br>',
     to: process.env.CONTACT_TO_EMAIL,
-    subject: `Nova mensagem de contato — ${nome}`,
-    html: `<p><strong>Nome:</strong> ${nome}</p><p><strong>Email:</strong> ${email}</p><p><strong>Mensagem:</strong><br>${mensagem}</p>`,
+    subject: `Nova mensagem de contato — ${String(nome ?? '').replace(/[\r\n]/g, ' ').slice(0, 120)}`,
+    html: `<p><strong>Nome:</strong> ${esc(nome)}</p><p><strong>Email:</strong> ${esc(email)}</p><p><strong>Mensagem:</strong><br>${esc(mensagem).replace(/\n/g, '<br>')}</p>`,
     replyTo: email,
   })
 

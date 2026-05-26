@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const prisma = require('../config/database')
 
 function verifyJWT(req, res, next) {
   const header = req.headers.authorization
@@ -15,9 +16,14 @@ function verifyJWT(req, res, next) {
 }
 
 function verifyAdmin(req, res, next) {
-  verifyJWT(req, res, () => {
-    if (!req.user?.isAdmin) return res.status(403).json({ error: 'Acesso restrito a administradores' })
-    next()
+  verifyJWT(req, res, async () => {
+    try {
+      const user = await prisma.user.findUnique({ where: { id: req.user.sub }, select: { isAdmin: true } })
+      if (!user?.isAdmin) return res.status(403).json({ error: 'Acesso restrito a administradores' })
+      next()
+    } catch (e) {
+      next(e)
+    }
   })
 }
 

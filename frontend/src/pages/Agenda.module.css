@@ -1,0 +1,91 @@
+.page {
+  min-height: 100vh;
+  padding: calc(var(--nav-height) + 40px) 0 80px;
+}
+
+.header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+.eyebrow {
+  color: var(--nude);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.title { color: var(--white); margin-bottom: 14px; }
+.subtitle { color: var(--white-muted); font-size: 1rem; }
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 60px);
+}
+
+.muted { color: var(--gray-light); text-align: center; padding: 60px 0; font-style: italic; }
+
+.successBanner {
+  max-width: 720px;
+  margin: 0 auto 36px;
+  background: rgba(80, 180, 100, 0.12);
+  border: 1px solid rgba(80, 180, 100, 0.3);
+  color: #9fe6b8;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.9rem;
+}
+.bannerClose { color: #9fe6b8; font-size: 1.3rem; line-height: 1; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--black-card);
+  border: 1px solid rgba(201, 168, 130, 0.12);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), border-color var(--transition);
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(201, 168, 130, 0.3); }
+
+.cardImg {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--black-soft);
+}
+
+.cardBody { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.cardTitle { color: var(--white); font-size: 1.3rem; margin: 4px 0; }
+.cardMeta { color: var(--white-muted); font-size: 0.82rem; }
+.cardDesc {
+  color: var(--gray-light);
+  font-size: 0.82rem;
+  margin: 4px 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cardFooter {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.preco { color: var(--nude); font-size: 1.15rem; font-weight: 700; font-family: var(--font-serif); }
+.vagasAlerta { color: var(--wine-light); font-size: 0.74rem; font-weight: 600; margin-top: 4px; }

@@ -1,0 +1,46 @@
+.page { min-height: 100vh; padding: calc(var(--nav-height) + 40px) 0 80px; }
+.header { text-align: center; max-width: 640px; margin: 0 auto 40px; padding: 0 24px; }
+.eyebrow { color: var(--nude); font-size: 0.72rem; letter-spacing: 0.25em; font-weight: 600; margin-bottom: 12px; }
+.title { color: var(--white); margin-bottom: 14px; }
+.subtitle { color: var(--white-muted); font-size: 1rem; }
+.container { max-width: var(--container-max); margin: 0 auto; padding: 0 clamp(20px, 5vw, 60px); }
+.muted { color: var(--gray-light); text-align: center; padding: 60px 0; font-style: italic; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+.filters { display: flex; gap: 8px; }
+.filterBtn {
+  padding: 8px 18px; border-radius: var(--radius-full);
+  border: 1px solid rgba(201, 168, 130, 0.25);
+  color: var(--white-muted); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+}
+.filterBtn.active { background: var(--nude); color: var(--black); border-color: var(--nude); }
+.search { display: flex; gap: 8px; }
+.search input {
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(201, 168, 130, 0.2);
+  border-radius: var(--radius-full); color: var(--white); padding: 8px 16px; font-size: 0.85rem;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; }
+.card {
+  background: var(--black-card); border: 1px solid rgba(201, 168, 130, 0.12);
+  border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column;
+  transition: transform var(--transition), border-color var(--transition);
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(201, 168, 130, 0.3); }
+.cardImg {
+  position: relative; height: 180px; background-size: cover; background-position: center;
+  background-color: var(--black-soft); display: flex; align-items: center; justify-content: center;
+}
+.noImg { color: var(--gray); font-size: 2rem; }
+.tipoTag { position: absolute; top: 10px; left: 10px; }
+.cardBody { padding: 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.cardTitle { color: var(--white); font-size: 1.15rem; }
+.cat { color: var(--nude); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.cardDesc {
+  color: var(--gray-light); font-size: 0.8rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cardFooter { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.preco { color: var(--nude); font-size: 1.05rem; font-weight: 700; font-family: var(--font-serif); }
+.vendedora { color: var(--gray-light); font-size: 0.72rem; }

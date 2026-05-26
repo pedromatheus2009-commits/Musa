@@ -2,10 +2,13 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
+const compression = require('compression')
 
 const app = express()
 
+app.set('trust proxy', 1)
 app.use(helmet())
+app.use(compression())
 const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : []
 const corsOrigin = process.env.NODE_ENV === 'development'
   ? (origin, cb) => cb(null, true)
@@ -30,6 +33,8 @@ app.use('/api/posts', require('./modules/posts/posts.routes'))
 app.use('/api/feed', require('./modules/feed/feed.routes'))
 app.use('/api/admin', require('./modules/admin/admin.routes'))
 app.use('/api/partnerships', require('./modules/partnerships/partnerships.routes'))
+app.use('/api/eventos', require('./modules/eventos/eventos.routes'))
+app.use('/api/bau', require('./modules/bau/bau.routes'))
 
 // 404
 app.use((_req, res) => res.status(404).json({ error: 'Rota não encontrada' }))
