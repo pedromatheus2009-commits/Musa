@@ -99,7 +99,7 @@ export default function AdminFeed() {
 
   return (
     <div className={styles.page}>
-      <h2 className={styles.pageTitle}>Feed MUSA</h2>
+      <h2 className={styles.pageTitle}>Feed Casa Musa</h2>
       <p className={styles.pageSubtitle}>Gerencie as publicações visíveis no feed público da plataforma</p>
 
       {/* Create */}
@@ -124,7 +124,7 @@ export default function AdminFeed() {
 
           {form.videoUrl && (
             <div className={styles.imagePreview}>
-              <video src={form.videoUrl} controls style={{ width: '100%', maxHeight: 200 }} />
+              <video src={form.videoUrl} controls className={styles.previewVideo} />
               <button type="button" className={styles.removeImg} onClick={() => setField('videoUrl', '')}>✕</button>
             </div>
           )}
@@ -143,7 +143,7 @@ export default function AdminFeed() {
             <button type="button" className={styles.uploadBtn} onClick={() => videoRef.current?.click()} disabled={imgUploading}>
               {imgUploading ? 'Enviando...' : '🎬 Adicionar vídeo'}
             </button>
-            <button type="submit" className="btn btn-primary" disabled={creating} style={{ padding: '10px 24px' }}>
+            <button type="submit" className={`btn btn-primary ${styles.publishBtn}`} disabled={creating}>
               {creating ? 'Publicando...' : form.publicado ? 'Publicar' : 'Salvar rascunho'}
             </button>
             {createError && <span className={styles.errorMsg}>{createError}</span>}
@@ -167,7 +167,7 @@ export default function AdminFeed() {
             <div key={post.id} className={styles.postCard}>
               {post.imagemUrl && <img src={post.imagemUrl} alt={post.titulo} className={styles.postCardImg} />}
               {post.videoUrl && (
-                <video src={post.videoUrl} controls className={styles.postCardImg} style={{ width: '100%' }} />
+                <video src={post.videoUrl} controls className={styles.postCardImg} />
               )}
               <div className={styles.postCardBody}>
                 <div className={styles.postCardText}>

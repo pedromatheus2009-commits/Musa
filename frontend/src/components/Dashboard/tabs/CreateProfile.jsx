@@ -39,7 +39,7 @@ export default function CreateProfile({ onProfileCreated }) {
   return (
     <div className={styles.wrap}>
       <h2 className={styles.heading}>Criar meu perfil</h2>
-      <p className={styles.sub}>Preencha suas informações para aparecer no catálogo MUSA.</p>
+      <p className={styles.sub}>Preencha suas informações para aparecer no catálogo Casa Musa.</p>
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.row}>

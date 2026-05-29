@@ -2,6 +2,20 @@
   font-family: var(--font-serif);
   color: var(--text);
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.countBadge {
+  margin-left: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
 }
 
 .subtitle {
@@ -34,94 +48,72 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
-.row {
+.card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  padding: 16px 20px;
 }
 
-.info {
-  flex: 1;
-  min-width: 180px;
+/* Unread accent — keep surface bg so action chips stay legible; flag with brick border + bar */
+.cardUnread {
+  border-color: var(--blush);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
 }
 
 .name {
   color: var(--text);
   font-weight: 600;
-  font-size: 0.9rem;
 }
 
-.metaRole {
+.meta {
   color: var(--text-muted);
   font-size: 0.78rem;
 }
 
-.metaSub {
-  color: var(--ink-faint);
-  font-size: 0.72rem;
-}
-
-/* Status badge */
-.badge {
-  font-size: 0.7rem;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.badgeApproved {
-  color: #4f8a5b;
-  background: rgba(79, 138, 91, 0.14);
-}
-
-.badgePending {
-  color: var(--gold);
-  background: rgba(179, 133, 58, 0.14);
+.message {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Action buttons */
 .actions {
   display: flex;
   gap: 6px;
-  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .actionBtn {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   font-weight: 600;
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-.approve {
-  background: rgba(79, 138, 91, 0.14);
-  color: #4f8a5b;
-  border: 1px solid rgba(79, 138, 91, 0.3);
+.read {
+  background: rgba(179, 133, 58, 0.14);
+  color: var(--gold);
+  border: 1px solid rgba(179, 133, 58, 0.3);
 }
 
-.approve:hover {
-  background: rgba(79, 138, 91, 0.22);
-}
-
-.suspend {
-  background: var(--blush-soft);
-  color: var(--brick-deep);
-  border: 1px solid var(--blush);
-}
-
-.suspend:hover {
-  background: var(--blush);
+.read:hover {
+  background: rgba(179, 133, 58, 0.22);
 }
 
 .delete {
@@ -132,4 +124,11 @@
 
 .delete:hover {
   background: var(--blush);
+}
+
+/* Pagination */
+.loadMore {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

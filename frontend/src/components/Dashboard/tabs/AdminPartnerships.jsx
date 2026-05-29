@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react'
 import { partnershipsService } from '../../../services/partnerships.service'
+import styles from './AdminPartnerships.module.css'
 
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
+const PAGE = 12
+
 export default function AdminPartnerships() {
   const [proposals, setProposals] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
+  const [visible, setVisible] = useState(PAGE)
 
   function load(f = filter) {
     setLoading(true)
+    setVisible(PAGE)
     const params = f === 'unread' ? { lida: false } : f === 'read' ? { lida: true } : {}
     partnershipsService.list(params)
       .then(setProposals)
@@ -37,64 +42,64 @@ export default function AdminPartnerships() {
   }
 
   const unreadCount = proposals.filter((p) => !p.lida).length
+  const shown = proposals.slice(0, visible)
 
   return (
     <div>
-      <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', marginBottom: 4 }}>
+      <h2 className={styles.title}>
         Propostas de Parcerias
         {unreadCount > 0 && (
-          <span style={{ marginLeft: 10, fontSize: '0.75rem', background: 'var(--wine)', color: 'var(--white)', borderRadius: 999, padding: '2px 8px' }}>
+          <span className={styles.countBadge}>
             {unreadCount} novas
           </span>
         )}
       </h2>
-      <p style={{ color: 'var(--white-muted)', fontSize: '0.88rem', marginBottom: 24 }}>Propostas enviadas pelo formulário de parcerias</p>
+      <p className={styles.subtitle}>Propostas enviadas pelo formulário de parcerias</p>
 
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+      <div className={styles.filters}>
         {[['all', 'Todas'], ['unread', 'Não lidas'], ['read', 'Lidas']].map(([val, label]) => (
           <button key={val} onClick={() => changeFilter(val)}
-            className={filter === val ? 'btn btn-primary' : 'btn btn-secondary'}
-            style={{ fontSize: '0.78rem', padding: '6px 14px' }}>
+            className={`${filter === val ? 'btn btn-primary' : 'btn btn-outline'} ${styles.filterBtn}`}>
             {label}
           </button>
         ))}
       </div>
 
       {loading ? (
-        <p style={{ color: 'var(--gray-light)' }}>Carregando...</p>
+        <p className={styles.muted}>Carregando...</p>
       ) : proposals.length === 0 ? (
-        <p style={{ color: 'var(--gray-light)', fontStyle: 'italic' }}>Nenhuma proposta encontrada.</p>
+        <p className={styles.empty}>Nenhuma proposta encontrada.</p>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {proposals.map((p) => (
-            <div key={p.id} style={{
-              background: p.lida ? 'rgba(255,255,255,0.02)' : 'rgba(184,67,110,0.06)',
-              border: `1px solid ${p.lida ? 'rgba(201,168,130,0.08)' : 'rgba(184,67,110,0.2)'}`,
-              borderRadius: 'var(--radius-sm)',
-              padding: '16px 20px',
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16, marginBottom: 8 }}>
-                <div>
-                  <div style={{ color: 'var(--white)', fontWeight: 600 }}>{p.nome} — {p.empresa}</div>
-                  <div style={{ color: 'var(--white-muted)', fontSize: '0.78rem' }}>{p.email} · {p.tipo} · {formatDate(p.createdAt)}</div>
-                </div>
-                <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                  {!p.lida && (
-                    <button onClick={() => handleRead(p.id)}
-                      style={{ fontSize: '0.72rem', padding: '4px 10px', background: 'rgba(201,168,130,0.15)', color: 'var(--nude)', border: '1px solid rgba(201,168,130,0.3)', borderRadius: 4 }}>
-                      Marcar lida
+        <>
+          <div className={styles.list}>
+            {shown.map((p) => (
+              <div key={p.id} className={`${styles.card} ${p.lida ? '' : styles.cardUnread}`}>
+                <div className={styles.cardHead}>
+                  <div>
+                    <div className={styles.name}>{p.nome} — {p.empresa}</div>
+                    <div className={styles.meta}>{p.email} · {p.tipo} · {formatDate(p.createdAt)}</div>
+                  </div>
+                  <div className={styles.actions}>
+                    {!p.lida && (
+                      <button onClick={() => handleRead(p.id)} className={`${styles.actionBtn} ${styles.read}`}>
+                        Marcar lida
+                      </button>
+                    )}
+                    <button onClick={() => handleDelete(p.id)} className={`${styles.actionBtn} ${styles.delete}`}>
+                      Excluir
                     </button>
-                  )}
-                  <button onClick={() => handleDelete(p.id)}
-                    style={{ fontSize: '0.72rem', padding: '4px 10px', background: 'rgba(255,80,80,0.1)', color: '#e07070', border: '1px solid rgba(220,80,80,0.3)', borderRadius: 4 }}>
-                    Excluir
-                  </button>
+                  </div>
                 </div>
+                <p className={styles.message}>{p.mensagem}</p>
               </div>
-              <p style={{ color: 'var(--white-muted)', fontSize: '0.85rem', lineHeight: 1.6, margin: 0 }}>{p.mensagem}</p>
+            ))}
+          </div>
+          {visible < proposals.length && (
+            <div className={styles.loadMore}>
+              <button className="btn btn-outline" onClick={() => setVisible((v) => v + PAGE)}>Carregar mais</button>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   )

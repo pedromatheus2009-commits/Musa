@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { paymentsService } from '../../../services/payments.service'
+import { PLAN } from '../../../config/plan'
 import styles from './Assinatura.module.css'
 
 const STATUS_LABEL = {
@@ -60,7 +61,7 @@ export default function Assinatura() {
 
       <div className={styles.card}>
         <div className={styles.planRow}>
-          <span className={styles.planName}>Plano Mensal — R$ 5,99/mês</span>
+          <span className={styles.planName}>{PLAN.name} — {PLAN.price}{PLAN.period}</span>
           {statusLabel && (
             <span className={`${styles.badge} ${isActive ? styles.badgeActive : styles.badgeInactive}`}>
               {statusLabel}
@@ -77,7 +78,7 @@ export default function Assinatura() {
                   : `Próxima cobrança em ${periodEnd}`}
               </p>
             )}
-            <p className={styles.info}>Seu perfil está visível no catálogo MUSA.</p>
+            <p className={styles.info}>Seu perfil está visível no catálogo Casa Musa.</p>
             <button
               className={styles.btnSecondary}
               onClick={handlePortal}
@@ -98,7 +99,7 @@ export default function Assinatura() {
               onClick={handleCheckout}
               disabled={actionLoading}
             >
-              {actionLoading ? 'Aguarde...' : 'Assinar — 7 dias grátis'}
+              {actionLoading ? 'Aguarde...' : `Assinar — ${PLAN.trialDays} dias grátis`}
             </button>
           </>
         )}

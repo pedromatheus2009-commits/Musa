@@ -1,0 +1,66 @@
+.head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; gap: 12px; flex-wrap: wrap; }
+.title { font-size: 1.7rem; margin-bottom: 4px; }
+.sub { color: var(--ink-soft); font-size: 0.9rem; }
+.newBtn { padding: 9px 18px; font-size: 0.74rem; }
+
+.form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 22px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.full { grid-column: 1 / -1; }
+.checkRow { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 0.88rem; }
+.uploadBtn { font-size: 0.74rem; padding: 8px 16px; }
+.preview { display: block; margin-top: 10px; width: 130px; height: 86px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
+.submit { grid-column: 1 / -1; justify-content: center; }
+
+.loading, .empty { color: var(--ink-faint); font-style: italic; padding: 16px 0; }
+.list { display: flex; flex-direction: column; gap: 12px; }
+
+.row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 16px 18px; }
+.rowTop { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.rowInfo { flex: 1; min-width: 180px; }
+.rowTitle { color: var(--text); font-weight: 600; font-size: 1rem; font-family: var(--font-serif); }
+.rowMeta { color: var(--ink-soft); font-size: 0.8rem; margin-top: 2px; }
+.rowCount { text-align: center; min-width: 90px; }
+.count { color: var(--accent); font-weight: 700; font-size: 1.05rem; }
+.pct { color: var(--ink-faint); font-size: 0.72rem; }
+
+.badge { font-size: 0.68rem; padding: 4px 11px; border-radius: var(--radius-full); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.st_rascunho { background: var(--ivory-deep); color: var(--ink-faint); }
+.st_publicado { background: rgba(79, 138, 91, 0.16); color: #3f7a4b; }
+.st_lotado { background: rgba(179, 133, 58, 0.16); color: var(--gold); }
+.st_encerrado { background: var(--ivory-deep); color: var(--ink-faint); }
+.st_cancelado { background: var(--blush-soft); color: var(--brick-deep); }
+
+.rowActions { display: flex; gap: 6px; flex-wrap: wrap; }
+.smallBtn { font-size: 0.72rem; padding: 5px 11px; border-radius: var(--radius-full); font-weight: 600; border: 1px solid transparent; transition: all var(--transition-fast); }
+.smallNeutral { background: rgba(179, 133, 58, 0.12); color: var(--gold); border-color: rgba(179, 133, 58, 0.4); }
+.smallNeutral:hover { background: rgba(179, 133, 58, 0.2); }
+.smallSuccess { background: rgba(79, 138, 91, 0.14); color: #3f7a4b; border-color: rgba(79, 138, 91, 0.4); }
+.smallDanger { background: var(--blush-soft); color: var(--brick-deep); border-color: rgba(158, 48, 36, 0.4); }
+.smallDanger:hover { background: rgba(158, 48, 36, 0.14); }
+
+.inscritos { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+.manualForm { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; align-items: flex-start; }
+.inputInline {
+  flex: 1; min-width: 150px; background: #fffdf8; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text); padding: 8px 12px; font-size: 0.82rem;
+}
+.inputInline:focus { outline: none; border-color: var(--accent); }
+.manualBtn { font-size: 0.74rem; padding: 8px 14px; }
+.manualErr { color: var(--brick-deep); font-size: 0.78rem; width: 100%; margin: -4px 0 4px; }
+.inscritosHead { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.inscritosCount { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-2); font-weight: 700; }
+.csvBtn { font-size: 0.7rem; padding: 5px 12px; border-radius: var(--radius-full); color: var(--accent); border: 1px solid var(--accent); font-weight: 600; transition: background var(--transition-fast); }
+.csvBtn:hover { background: rgba(158, 48, 36, 0.08); }
+.inscritosList { list-style: decimal inside; color: var(--ink-soft); font-size: 0.84rem; display: flex; flex-direction: column; gap: 5px; }
+.manualTag { color: var(--ink-faint); font-size: 0.7rem; }
+
+@media (max-width: 600px) { .form { grid-template-columns: 1fr; } }

@@ -140,7 +140,7 @@ export default function MyPosts({ profile }) {
 
           {form.videoUrl && (
             <div className={styles.imagePreview}>
-              <video src={form.videoUrl} controls style={{ width: '100%', maxHeight: 200 }} />
+              <video src={form.videoUrl} controls className={styles.previewVideo} />
               <button type="button" className={styles.removeImg} onClick={() => setField('videoUrl', '')}>✕</button>
             </div>
           )}
@@ -154,7 +154,7 @@ export default function MyPosts({ profile }) {
             <button type="button" className={styles.uploadImageBtn} onClick={() => videoRef.current?.click()} disabled={imageUploading}>
               {imageUploading ? 'Enviando...' : '🎬 Adicionar vídeo'}
             </button>
-            <button type="submit" className="btn btn-primary" disabled={creating} style={{ padding: '10px 24px' }}>
+            <button type="submit" className={`btn btn-primary ${styles.publishBtn}`} disabled={creating}>
               {creating ? 'Publicando...' : 'Publicar'}
             </button>
             {createError && <span className={styles.createError}>{createError}</span>}
@@ -183,7 +183,7 @@ export default function MyPosts({ profile }) {
                 <img src={post.imagemUrl} alt={post.titulo || 'Imagem'} className={styles.postCardImage} />
               )}
               {post.videoUrl && (
-                <video src={post.videoUrl} controls className={styles.postCardImage} style={{ width: '100%' }} />
+                <video src={post.videoUrl} controls className={styles.postCardImage} />
               )}
               <div className={styles.postCardBody}>
                 <div className={styles.postCardText}>

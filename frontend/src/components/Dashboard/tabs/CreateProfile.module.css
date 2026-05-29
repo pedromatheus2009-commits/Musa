@@ -5,13 +5,13 @@
 .heading {
   font-family: var(--font-serif);
   font-size: 1.8rem;
-  color: var(--white);
+  color: var(--text);
   font-weight: 400;
   margin-bottom: 6px;
 }
 
 .sub {
-  color: var(--white-muted);
+  color: var(--text-muted);
   font-size: 0.9rem;
   margin-bottom: 28px;
 }
@@ -29,7 +29,7 @@
 }
 
 .error {
-  color: var(--wine-light);
+  color: var(--brick-deep);
   font-size: 0.85rem;
 }
 

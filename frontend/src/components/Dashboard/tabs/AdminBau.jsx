@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
 import { bauService } from '../../../services/bau.service'
+import styles from './AdminBau.module.css'
 
 const fmtPreco = (c) => (c / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-const box = { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(201,168,130,0.12)', borderRadius: 'var(--radius-sm)' }
-const btnSmall = (c) => ({ fontSize: '0.74rem', padding: '4px 10px', background: `${c}22`, color: c, border: `1px solid ${c}55`, borderRadius: 4 })
+const PAGE = 12
 
 export default function AdminBau() {
   const [itens, setItens] = useState([])
   const [loading, setLoading] = useState(true)
   const [filtro, setFiltro] = useState('pendente')
+  const [visible, setVisible] = useState(PAGE)
 
   function load(f = filtro) {
     setLoading(true)
+    setVisible(PAGE)
     bauService.listAdmin(f || undefined).then(setItens).catch(() => setItens([])).finally(() => setLoading(false))
   }
   useEffect(() => { load() }, []) // eslint-disable-line
@@ -20,38 +22,47 @@ export default function AdminBau() {
   async function aprovar(id) { await bauService.aprovar(id); load() }
   async function recusar(id) { await bauService.recusar(id); load() }
 
+  const shown = itens.slice(0, visible)
+
   return (
     <div>
-      <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', marginBottom: 4 }}>Moderar Baú</h2>
-      <p style={{ color: 'var(--white-muted)', fontSize: '0.88rem', marginBottom: 20 }}>Aprove ou recuse os anúncios do bazar</p>
+      <h2 className={styles.title}>Moderar Baú</h2>
+      <p className={styles.subtitle}>Aprove ou recuse os anúncios do bazar</p>
 
-      <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+      <div className={styles.filters}>
         {[['pendente', 'Pendentes'], ['aprovado', 'Aprovados'], ['', 'Todos']].map(([v, l]) => (
-          <button key={v} onClick={() => changeFiltro(v)} className={filtro === v ? 'btn btn-primary' : 'btn btn-secondary'} style={{ fontSize: '0.78rem', padding: '6px 14px' }}>{l}</button>
+          <button key={v} onClick={() => changeFiltro(v)} className={`${filtro === v ? 'btn btn-primary' : 'btn btn-outline'} ${styles.filterBtn}`}>{l}</button>
         ))}
       </div>
 
       {loading ? (
-        <p style={{ color: 'var(--gray-light)' }}>Carregando...</p>
+        <p className={styles.muted}>Carregando...</p>
       ) : itens.length === 0 ? (
-        <p style={{ color: 'var(--gray-light)', fontStyle: 'italic' }}>Nenhum item.</p>
+        <p className={styles.empty}>Nenhum item.</p>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {itens.map((it) => (
-            <div key={it.id} style={{ ...box, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-              <div style={{ width: 52, height: 52, borderRadius: 6, flexShrink: 0, background: 'var(--black-soft)', backgroundImage: it.fotos?.[0] ? `url(${it.fotos[0]})` : 'none', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-              <div style={{ flex: 1, minWidth: 150 }}>
-                <div style={{ color: 'var(--white)', fontWeight: 600, fontSize: '0.92rem' }}>{it.titulo}</div>
-                <div style={{ color: 'var(--white-muted)', fontSize: '0.78rem' }}>{it.tipo === 'troca' ? 'Troca' : (it.preco != null ? fmtPreco(it.preco) : 'A combinar')} · por {it.user?.nome}</div>
+        <>
+          <div className={styles.list}>
+            {shown.map((it) => (
+              <div key={it.id} className={styles.itemCard}>
+                <div className={styles.itemPhoto} style={it.fotos?.[0] ? { backgroundImage: `url(${it.fotos[0]})` } : undefined} />
+                <div className={styles.itemMain}>
+                  <div className={styles.itemTitle}>{it.titulo}</div>
+                  <div className={styles.itemMeta}>{it.tipo === 'troca' ? 'Troca' : (it.preco != null ? fmtPreco(it.preco) : 'A combinar')} · por {it.user?.nome}</div>
+                </div>
+                <span className={styles.itemStatus}>{it.status}</span>
+                <div className={styles.actions}>
+                  {it.status !== 'aprovado' && <button onClick={() => aprovar(it.id)} className={`${styles.actionBtn} ${styles.approve}`}>Aprovar</button>}
+                  {it.status !== 'recusado' && <button onClick={() => recusar(it.id)} className={`${styles.actionBtn} ${styles.reject}`}>Recusar</button>}
+                </div>
               </div>
-              <span style={{ fontSize: '0.7rem', color: 'var(--gray-light)' }}>{it.status}</span>
-              <div style={{ display: 'flex', gap: 6 }}>
-                {it.status !== 'aprovado' && <button onClick={() => aprovar(it.id)} style={btnSmall('#7de0a0')}>Aprovar</button>}
-                {it.status !== 'recusado' && <button onClick={() => recusar(it.id)} style={btnSmall('#e07070')}>Recusar</button>}
-              </div>
+            ))}
+          </div>
+          {visible < itens.length && (
+            <div className={styles.loadMore}>
+              <button className="btn btn-outline" onClick={() => setVisible((v) => v + PAGE)}>Carregar mais</button>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   )

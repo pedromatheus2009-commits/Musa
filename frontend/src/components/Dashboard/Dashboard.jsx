@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { profilesService } from '../../services/profiles.service'
 import { useAuth } from '../../context/AuthContext'
+import Avatar from '../brand/Avatar'
 import EditProfile from './tabs/EditProfile'
 import CreateProfile from './tabs/CreateProfile'
 import MyPosts from './tabs/MyPosts'
@@ -18,25 +19,25 @@ const USER_TABS = [
   { id: 'profile', label: 'Meu Perfil', icon: '👤' },
   { id: 'posts', label: 'Publicações', icon: '📝' },
   { id: 'meubau', label: 'Meu Baú', icon: '🛍' },
-  { id: 'assinatura', label: 'Assinatura', icon: '◈' },
+  { id: 'assinatura', label: 'Assinatura', icon: '✦' },
 ]
 
 const ADMIN_TABS = [
+  { id: 'eventos', label: 'Oficinas & Eventos', icon: '🎟', adminOnly: true },
+  { id: 'modbau', label: 'Moderar Baú', icon: '🛒', adminOnly: true },
+  { id: 'feed', label: 'Feed da Casa', icon: '✦', adminOnly: true },
+  { id: 'perfis', label: 'Gerenciar Perfis', icon: '✔', adminOnly: true },
+  { id: 'parcerias', label: 'Parcerias', icon: '◇', adminOnly: true },
+  { id: 'analytics', label: 'Resultados', icon: '◉', adminOnly: true },
   { id: 'profile', label: 'Meu Perfil', icon: '👤' },
   { id: 'posts', label: 'Publicações', icon: '📝' },
   { id: 'meubau', label: 'Meu Baú', icon: '🛍' },
-  { id: 'assinatura', label: 'Assinatura', icon: '◈' },
-  { id: 'eventos', label: 'Eventos', icon: '🎟', adminOnly: true },
-  { id: 'modbau', label: 'Moderar Baú', icon: '🛒', adminOnly: true },
-  { id: 'feed', label: 'Feed MUSA', icon: '✦', adminOnly: true },
-  { id: 'perfis', label: 'Gerenciar Perfis', icon: '✔', adminOnly: true },
-  { id: 'analytics', label: 'Resultados', icon: '◉', adminOnly: true },
-  { id: 'parcerias', label: 'Parcerias', icon: '◇', adminOnly: true },
+  { id: 'assinatura', label: 'Assinatura', icon: '♥' },
 ]
 
 export default function Dashboard({ onClose, onOpenAnnounce }) {
   const { user } = useAuth()
-  const [tab, setTab] = useState('profile')
+  const [tab, setTab] = useState(user?.isAdmin ? 'eventos' : 'profile')
   const [profile, setProfile] = useState(undefined)
   const [loadingProfile, setLoadingProfile] = useState(true)
 
@@ -57,17 +58,19 @@ export default function Dashboard({ onClose, onOpenAnnounce }) {
 
   return (
     <div className={styles.overlay}>
-      {/* Header */}
       <div className={styles.header}>
-        <div className={styles.headerLogo}>MU<span>SA</span></div>
+        <div className={styles.headerLogo}>
+          <span className={styles.logoKicker}>Casa</span>
+          <span className={styles.logoScript}>Musa</span>
+        </div>
         <div className={styles.headerRight}>
           {user?.isAdmin && <span className={styles.adminBadge}>Admin</span>}
+          <Avatar name={user?.nome} size={30} />
           <span className={styles.userName}>{user?.nome}</span>
           <button className={styles.closeBtn} onClick={onClose}>← Voltar ao site</button>
         </div>
       </div>
 
-      {/* Mobile tabs */}
       <div className={styles.mobileTabs}>
         <div className={styles.mobileTabList}>
           {TABS.map((t) => (
@@ -83,7 +86,6 @@ export default function Dashboard({ onClose, onOpenAnnounce }) {
       </div>
 
       <div className={styles.body}>
-        {/* Sidebar */}
         <aside className={styles.sidebar}>
           {TABS.map((t) => (
             <button
@@ -97,10 +99,9 @@ export default function Dashboard({ onClose, onOpenAnnounce }) {
           ))}
         </aside>
 
-        {/* Main content */}
         <main className={styles.content}>
           {loadingProfile ? (
-            <div style={{ color: 'var(--white-muted)', padding: '48px 0' }}>Carregando...</div>
+            <div className={styles.loading}>Carregando...</div>
           ) : (
             <>
               {tab === 'profile' && (
