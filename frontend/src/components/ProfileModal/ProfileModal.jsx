@@ -2,19 +2,27 @@ import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useProfessional } from '../../hooks/useProfessionals'
 import { reviewsService } from '../../services/reviews.service'
+import Avatar from '../brand/Avatar'
 import styles from './ProfileModal.module.css'
 
-const AVATAR_COLORS = [
-  'linear-gradient(135deg,#8b2c4a,#6b1f37)',
-  'linear-gradient(135deg,#a8845f,#7a5c3f)',
-]
-
 function StarRating({ value, onChange }) {
+  function onKey(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); onChange(Math.min(5, value + 1)) }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); onChange(Math.max(1, value - 1)) }
+  }
   return (
-    <div className={styles.stars}>
-      {[1,2,3,4,5].map((n) => (
-        <button key={n} type="button" className={`${styles.star} ${n <= value ? styles.starActive : ''}`}
-          onClick={() => onChange(n)}>★</button>
+    <div className={styles.stars} role="radiogroup" aria-label="Nota" onKeyDown={onKey}>
+      {[1, 2, 3, 4, 5].map((n) => (
+        <button
+          key={n}
+          type="button"
+          role="radio"
+          aria-checked={n === value}
+          aria-label={`${n} ${n > 1 ? 'estrelas' : 'estrela'}`}
+          tabIndex={n === value ? 0 : -1}
+          className={`${styles.star} ${n <= value ? styles.starActive : ''}`}
+          onClick={() => onChange(n)}
+        >★</button>
       ))}
     </div>
   )
@@ -47,6 +55,14 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
       .finally(() => setReviewsLoading(false))
   }, [tab, profileId])
 
+  // Fecha no ESC
+  useEffect(() => {
+    if (!isOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isOpen, onClose])
+
   async function handleReviewSubmit(e) {
     e.preventDefault()
     if (!reviewForm.autorNome.trim()) { setReviewError('Informe seu nome'); return }
@@ -65,14 +81,13 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
   }
 
   if (!isOpen) return null
-  const initials = profile?.nome?.split(' ').slice(0, 2).map((w) => w[0]).join('')
   const posts = fetched?.posts || []
 
   return createPortal(
     <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-box" style={{ maxWidth: 640 }}>
+      <div className={`modal-box ${styles.modalWide}`} role="dialog" aria-modal="true" aria-label={profile?.nome ? `Perfil de ${profile.nome}` : 'Perfil'}>
         <div className={styles.inner}>
-          <button className={styles.close} onClick={onClose}>✕</button>
+          <button className={styles.close} onClick={onClose} aria-label="Fechar">✕</button>
 
           {isLoading && !fallback ? (
             <div className={styles.loading}>Carregando...</div>
@@ -80,27 +95,23 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
             <div className={styles.box}>
               {/* Header */}
               <div className={styles.top}>
-                <div className={styles.avatar} style={{ background: AVATAR_COLORS[0] }}>
-                  {profile?.fotoUrl
-                    ? <img src={profile.fotoUrl} alt={profile.nome} className={styles.avatarImg} />
-                    : initials}
-                </div>
+                <Avatar name={profile?.nome} src={profile?.fotoUrl} size={80} />
                 <div className={styles.info}>
                   <div className={styles.name}>{profile?.nome}</div>
                   <div className={styles.role}>{profile?.role}</div>
                   <div className={styles.meta}>
-                    {profile?.cidade && <span className={styles.metaItem}>📍 {profile.cidade}</span>}
+                    {profile?.cidade && <span className={styles.metaItem}>{profile.cidade}</span>}
                     {fetched?._count?.reviews > 0 && (
-                      <span className={styles.metaItem}>⭐ {fetched._count.reviews} avaliações</span>
+                      <span className={styles.metaItem}>{fetched._count.reviews} avaliações</span>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* Tabs */}
-              <div className={styles.tabs}>
-                {['perfil','portfolio','avaliacoes'].map((t) => (
-                  <button key={t} className={`${styles.tabBtn} ${tab === t ? styles.tabActive : ''}`}
+              <div className={styles.tabs} role="tablist">
+                {['perfil', 'portfolio', 'avaliacoes'].map((t) => (
+                  <button key={t} role="tab" aria-selected={tab === t} className={`${styles.tabBtn} ${tab === t ? styles.tabActive : ''}`}
                     onClick={() => setTab(t)}>
                     {t === 'perfil' ? 'Perfil' : t === 'portfolio' ? 'Portfólio' : 'Avaliações'}
                   </button>
@@ -127,12 +138,11 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
                     </>
                   )}
                   {profile?.preco && (
-                    <div className={styles.preco}>💰 {profile.preco}</div>
+                    <div className={styles.preco}>{profile.preco}</div>
                   )}
                   {profile?.whatsapp && (
-                    <a href={`https://wa.me/${profile.whatsapp}`} target="_blank" rel="noreferrer"
-                      className={`btn btn-primary ${styles.waBtn}`}
-                      style={{ display: 'flex', justifyContent: 'center' }}>
+                    <a href={`https://wa.me/${profile.whatsapp}`} target="_blank" rel="noreferrer noopener"
+                      className={`btn btn-primary ${styles.waBtn}`}>
                       Entrar em contato via WhatsApp
                     </a>
                   )}
@@ -148,10 +158,10 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
                     posts.map((post) => (
                       <div key={post.id} className={styles.postCard}>
                         {post.imagemUrl && (
-                          <img src={post.imagemUrl} alt={post.titulo || ''} className={styles.postImg} />
+                          <img src={post.imagemUrl} alt={post.titulo || 'Publicação'} className={styles.postImg} loading="lazy" />
                         )}
                         {post.videoUrl && (
-                          <video src={post.videoUrl} controls className={styles.postImg} style={{ width: '100%' }} />
+                          <video src={post.videoUrl} controls className={styles.postVideo} />
                         )}
                         {post.titulo && <div className={styles.postTitle}>{post.titulo}</div>}
                         {post.conteudo && <p className={styles.postContent}>{post.conteudo}</p>}
@@ -164,7 +174,6 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
               {/* Tab: Avaliações */}
               {tab === 'avaliacoes' && (
                 <div className={styles.reviewsWrap}>
-                  {/* Form */}
                   {!reviewSuccess ? (
                     <form className={styles.reviewForm} onSubmit={handleReviewSubmit}>
                       <div className={styles.sectionTitle}>Deixar avaliação</div>
@@ -191,11 +200,10 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
                       </button>
                     </form>
                   ) : (
-                    <p className={styles.reviewSuccess}>✓ Avaliação enviada! Obrigada.</p>
+                    <p className={styles.reviewSuccess}>Avaliação enviada! Obrigada.</p>
                   )}
 
-                  {/* Reviews list */}
-                  <div className={styles.sectionTitle} style={{ marginTop: 24 }}>
+                  <div className={`${styles.sectionTitle} ${styles.sectionTitleSpaced}`}>
                     Avaliações ({reviews.length})
                   </div>
                   {reviewsLoading ? (
@@ -207,7 +215,7 @@ export default function ProfileModal({ profile: fallback, profileId, isOpen, onC
                       <div key={r.id} className={styles.reviewCard}>
                         <div className={styles.reviewTop}>
                           <span className={styles.reviewAutor}>{r.autorNome}</span>
-                          <span className={styles.reviewStars}>{'★'.repeat(r.nota)}{'☆'.repeat(5 - r.nota)}</span>
+                          <span className={styles.reviewStars} aria-label={`Nota ${r.nota} de 5`}>{'★'.repeat(r.nota)}{'☆'.repeat(5 - r.nota)}</span>
                         </div>
                         {r.comentario && <p className={styles.reviewComment}>{r.comentario}</p>}
                         <span className={styles.reviewDate}>
