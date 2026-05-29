@@ -1,24 +1,23 @@
-.section { background: var(--black-soft); }
+.section { background: var(--bg-alt); }
 .inner {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 64px;
   align-items: start;
 }
-.eyebrow { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wine-light); font-weight: 600; margin-bottom: 14px; }
-.title { color: var(--white); margin-bottom: 16px; }
-.desc { font-size: 0.92rem; line-height: 1.8; color: var(--white-muted); margin-bottom: 32px; }
-.infoList { display: flex; flex-direction: column; gap: 16px; }
-.infoItem { display: flex; gap: 12px; align-items: flex-start; }
-.infoIcon { color: var(--nude); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
-.infoLabel { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 2px; }
-.infoValue { font-size: 0.88rem; color: var(--white-muted); }
+.title { margin: 16px 0 16px; }
+.desc { font-size: 0.94rem; line-height: 1.8; color: var(--ink-soft); margin-bottom: 32px; }
+.infoList { display: flex; flex-direction: column; gap: 18px; }
+.infoItem { display: flex; gap: 14px; align-items: flex-start; }
+.infoIcon { color: var(--gold); flex-shrink: 0; margin-top: 2px; display: inline-flex; }
+.infoLabel { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 2px; }
+.infoValue { font-size: 0.9rem; color: var(--ink-soft); }
 .form { display: flex; flex-direction: column; gap: 16px; }
 .btn { width: 100%; }
 .success { text-align: center; padding: 40px; }
-.successIcon { font-size: 2.5rem; margin-bottom: 12px; }
-.successTitle { font-family: var(--font-serif); font-size: 1.5rem; color: var(--white); margin-bottom: 8px; }
-.error { color: #e57373; font-size: 0.82rem; margin-top: 4px; }
+.successIcon { display: flex; justify-content: center; color: var(--accent); margin-bottom: 12px; }
+.successTitle { font-size: 1.5rem; margin-bottom: 8px; }
+.error { color: var(--brick-deep); font-size: 0.82rem; margin-top: 4px; font-weight: 500; }
 
 @media (max-width: 900px) {
   .inner { grid-template-columns: 1fr; }

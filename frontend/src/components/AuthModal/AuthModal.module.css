@@ -1,14 +1,9 @@
 .box { padding: 36px; }
-.header { text-align: center; margin-bottom: 28px; }
-.logo {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  font-style: italic;
-  color: var(--nude);
-  margin-bottom: 8px;
-}
-.logo span { color: var(--wine); }
-.tabs { display: flex; border-bottom: 1px solid rgba(201,168,130,0.1); margin-bottom: 28px; }
+.header { text-align: center; margin-bottom: 26px; }
+.logo { display: inline-flex; align-items: baseline; gap: 7px; }
+.logoKicker { font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.logoScript { font-family: var(--font-script); font-size: 2rem; line-height: 1; color: var(--accent); }
+.tabs { display: flex; border-bottom: 1px solid var(--line); margin-bottom: 26px; }
 .tab {
   flex: 1;
   padding: 10px;
@@ -16,57 +11,45 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--gray-light);
+  color: var(--ink-faint);
   border-bottom: 2px solid transparent;
   transition: color var(--transition-fast), border-color var(--transition-fast);
   margin-bottom: -1px;
 }
-.tab.active { color: var(--nude); border-color: var(--nude); }
+.tab.active { color: var(--accent); border-color: var(--accent); }
 .form { display: flex; flex-direction: column; gap: 16px; }
 .submitBtn { width: 100%; margin-top: 8px; }
-.error { color: #e57373; font-size: 0.82rem; margin-top: 4px; }
+.error { color: var(--brick-deep); font-size: 0.82rem; margin-top: 4px; font-weight: 500; }
 .close {
   position: absolute;
   top: 16px;
-  right: 20px;
+  right: 18px;
   font-size: 1.2rem;
-  color: var(--gray-light);
+  color: var(--ink-faint);
   transition: color var(--transition-fast);
   padding: 4px 8px;
 }
-.close:hover { color: var(--white); }
+.close:hover { color: var(--accent); }
 .inner { position: relative; }
 .forgotLink {
   text-align: center;
-  font-size: 0.78rem;
-  color: var(--gray-light);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
   margin-top: 4px;
   transition: color var(--transition-fast);
 }
-.forgotLink:hover { color: var(--nude); }
+.forgotLink:hover { color: var(--accent); }
 .backBtn {
-  font-size: 0.75rem;
-  color: var(--gray-light);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
   letter-spacing: 0.06em;
   margin-bottom: 16px;
   transition: color var(--transition-fast);
   display: block;
 }
-.backBtn:hover { color: var(--nude); }
-.forgotDesc {
-  font-size: 0.85rem;
-  color: var(--white-muted);
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-.sentBox {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-}
-.sentIcon { font-size: 2.5rem; color: var(--wine-light); }
-.sentTitle { font-family: var(--font-serif); font-size: 1.6rem; color: var(--white); }
-.sentDesc { font-size: 0.85rem; color: var(--white-muted); line-height: 1.65; }
+.backBtn:hover { color: var(--accent); }
+.forgotDesc { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 20px; line-height: 1.6; }
+.sentBox { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 0; }
+.sentIcon { display: flex; justify-content: center; color: var(--accent); }
+.sentTitle { font-size: 1.6rem; }
+.sentDesc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; }

@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useAuth } from '../../context/AuthContext'
 import api from '../../services/api'
+import Selo from '../brand/Selo'
 import styles from './AuthModal.module.css'
 
 function AuthModal({ isOpen, onClose }) {
@@ -11,6 +12,13 @@ function AuthModal({ isOpen, onClose }) {
   const [form, setForm] = useState({ nome: '', email: '', password: '', confirmPassword: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    if (!isOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isOpen, onClose])
 
   if (!isOpen) return null
 
@@ -51,15 +59,17 @@ function AuthModal({ isOpen, onClose }) {
 
   return createPortal(
     <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-box">
+      <div className="modal-box" role="dialog" aria-modal="true" aria-label="Entrar ou cadastrar">
         <div className={styles.inner}>
-          <button className={styles.close} onClick={onClose}>✕</button>
+          <button className={styles.close} onClick={onClose} aria-label="Fechar">✕</button>
           <div className={styles.box}>
             <div className={styles.header}>
-              <div className={styles.logo}>MU<span>SA</span></div>
+              <div className={styles.logo}>
+                <span className={styles.logoKicker}>Casa</span>
+                <span className={styles.logoScript}>Musa</span>
+              </div>
             </div>
 
-            {/* Tabs login/cadastrar */}
             {(view === 'login' || view === 'register') && (
               <div className={styles.tabs}>
                 <button className={`${styles.tab} ${view === 'login' ? styles.active : ''}`} onClick={() => reset('login')}>Entrar</button>
@@ -67,7 +77,6 @@ function AuthModal({ isOpen, onClose }) {
               </div>
             )}
 
-            {/* Tela: login / cadastro */}
             {(view === 'login' || view === 'register') && (
               <form className={styles.form} onSubmit={handleSubmit}>
                 {view === 'register' && (
@@ -82,12 +91,12 @@ function AuthModal({ isOpen, onClose }) {
                 </div>
                 <div className="form-group">
                   <label>Senha</label>
-                  <input type="password" value={form.password} onChange={set('password')} placeholder="••••••••" required minLength={8} />
+                  <input type="password" value={form.password} onChange={set('password')} placeholder={view === 'register' ? 'Mínimo 8 caracteres' : 'Sua senha'} required minLength={8} />
                 </div>
                 {view === 'register' && (
                   <div className="form-group">
                     <label>Confirmar senha</label>
-                    <input type="password" value={form.confirmPassword} onChange={set('confirmPassword')} placeholder="••••••••" required />
+                    <input type="password" value={form.confirmPassword} onChange={set('confirmPassword')} placeholder="Repita a senha" required minLength={8} />
                   </div>
                 )}
                 {error && <p className={styles.error}>{error}</p>}
@@ -102,7 +111,6 @@ function AuthModal({ isOpen, onClose }) {
               </form>
             )}
 
-            {/* Tela: esqueci minha senha */}
             {view === 'forgot' && (
               <div>
                 <button className={styles.backBtn} onClick={() => reset('login')}>← Voltar</button>
@@ -120,10 +128,9 @@ function AuthModal({ isOpen, onClose }) {
               </div>
             )}
 
-            {/* Tela: email enviado */}
             {view === 'forgot-sent' && (
               <div className={styles.sentBox}>
-                <div className={styles.sentIcon}>✦</div>
+                <div className={styles.sentIcon}><Selo kind="heart" size={40} /></div>
                 <h3 className={styles.sentTitle}>Email enviado!</h3>
                 <p className={styles.sentDesc}>
                   Se este email estiver cadastrado, você receberá um link em instantes. Verifique sua caixa de entrada.

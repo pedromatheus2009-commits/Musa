@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { contactService } from '../../services/contact.service'
+import SectionLabel from '../brand/SectionLabel'
+import Selo from '../brand/Selo'
 import styles from './Contact.module.css'
 
 export default function Contact() {
@@ -28,22 +30,29 @@ export default function Contact() {
       <div className="container">
         <div className={styles.inner}>
           <div>
-            <p className={styles.eyebrow}>Fale conosco</p>
+            <SectionLabel>Fale conosco</SectionLabel>
             <h2 className={styles.title}>Contato</h2>
-            <p className={styles.desc}>Tem dúvidas, sugestões ou quer saber mais sobre a MUSA? Fale com a gente.</p>
+            <p className={styles.desc}>Tem dúvidas, sugestões ou quer saber mais sobre a Casa Musa? Fale com a gente.</p>
             <div className={styles.infoList}>
               <div className={styles.infoItem}>
-                <span className={styles.infoIcon}>✉</span>
+                <span className={styles.infoIcon}><Selo kind="star" size={18} /></span>
                 <div>
                   <div className={styles.infoLabel}>Email</div>
                   <div className={styles.infoValue}>contato@musacasa.com.br</div>
                 </div>
               </div>
               <div className={styles.infoItem}>
-                <span className={styles.infoIcon}>◎</span>
+                <span className={styles.infoIcon}><Selo kind="heart" size={18} /></span>
                 <div>
                   <div className={styles.infoLabel}>Instagram</div>
                   <div className={styles.infoValue}>@musacasa</div>
+                </div>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.infoIcon}><Selo kind="crest" size={18} /></span>
+                <div>
+                  <div className={styles.infoLabel}>Endereço</div>
+                  <div className={styles.infoValue}>Rua Antônio de Oliveira, 222 — Sorocaba/SP</div>
                 </div>
               </div>
             </div>
@@ -51,7 +60,7 @@ export default function Contact() {
 
           {success ? (
             <div className={styles.success}>
-              <div className={styles.successIcon}>✦</div>
+              <div className={styles.successIcon}><Selo kind="heart" size={40} /></div>
               <h3 className={styles.successTitle}>Mensagem enviada!</h3>
               <p>Entraremos em contato em breve.</p>
             </div>
@@ -71,7 +80,7 @@ export default function Contact() {
               </div>
               {error && <p className={styles.error}>{error}</p>}
               <button type="submit" className={`btn btn-primary ${styles.btn}`} disabled={loading}>
-                {loading ? 'Enviando...' : 'Enviar Mensagem'}
+                {loading ? 'Enviando...' : 'Enviar mensagem'}
               </button>
             </form>
           )}

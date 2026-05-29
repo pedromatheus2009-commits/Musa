@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import api from '../services/api'
+import Cartouche from '../components/brand/Cartouche'
+import Selo from '../components/brand/Selo'
 import styles from './RedefinirSenha.module.css'
 
 export default function RedefinirSenha() {
@@ -38,15 +40,18 @@ export default function RedefinirSenha() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.card}>
-        <div className={styles.logo}>MU<span>SA</span></div>
+      <Cartouche variant="double" tone="gold" className={styles.card}>
+        <div className={styles.logo}>
+          <span className={styles.logoKicker}>Casa</span>
+          <span className={styles.logoScript}>Musa</span>
+        </div>
 
         {success ? (
           <div className={styles.successBox}>
-            <div className={styles.successIcon}>✦</div>
+            <div className={styles.successIcon}><Selo kind="heart" size={42} /></div>
             <h2 className={styles.successTitle}>Senha redefinida!</h2>
             <p className={styles.successDesc}>Sua senha foi alterada com sucesso. Faça login com a nova senha.</p>
-            <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => navigate('/')}>
+            <button className={`btn btn-primary ${styles.fullBtn}`} onClick={() => navigate('/')}>
               Ir para o site
             </button>
           </div>
@@ -57,34 +62,20 @@ export default function RedefinirSenha() {
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Nova senha</label>
-                <input
-                  type="password"
-                  value={form.password}
-                  onChange={set('password')}
-                  placeholder="Mínimo 8 caracteres"
-                  required
-                  minLength={8}
-                  autoFocus
-                />
+                <input type="password" value={form.password} onChange={set('password')} placeholder="Mínimo 8 caracteres" required minLength={8} autoFocus />
               </div>
               <div className="form-group">
                 <label>Confirmar nova senha</label>
-                <input
-                  type="password"
-                  value={form.confirmPassword}
-                  onChange={set('confirmPassword')}
-                  placeholder="••••••••"
-                  required
-                />
+                <input type="password" value={form.confirmPassword} onChange={set('confirmPassword')} placeholder="Repita a senha" required minLength={8} />
               </div>
               {error && <p className={styles.error}>{error}</p>}
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 8 }} disabled={loading}>
+              <button type="submit" className={`btn btn-primary ${styles.fullBtn}`} disabled={loading}>
                 {loading ? 'Salvando...' : 'Salvar nova senha'}
               </button>
             </form>
           </>
         )}
-      </div>
+      </Cartouche>
     </main>
   )
 }

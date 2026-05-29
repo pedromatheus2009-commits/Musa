@@ -4,77 +4,18 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: var(--black);
+  background: var(--bg);
 }
-
-.card {
-  background: var(--black-card);
-  border: 1px solid rgba(201, 168, 130, 0.15);
-  border-radius: var(--radius-lg);
-  padding: 40px 36px;
-  width: 100%;
-  max-width: 420px;
-}
-
-.logo {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  font-style: italic;
-  color: var(--nude);
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.logo span { color: var(--wine); }
-
-.title {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  color: var(--white);
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.desc {
-  font-size: 0.85rem;
-  color: var(--white-muted);
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.error {
-  font-size: 0.82rem;
-  color: #e57373;
-}
-
-.successBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  text-align: center;
-}
-
-.successIcon {
-  font-size: 2.5rem;
-  color: var(--wine-light);
-}
-
-.successTitle {
-  font-family: var(--font-serif);
-  font-size: 1.8rem;
-  color: var(--white);
-}
-
-.successDesc {
-  font-size: 0.88rem;
-  color: var(--white-muted);
-  line-height: 1.65;
-  margin-bottom: 8px;
-}
+.card { width: 100%; max-width: 430px; text-align: center; }
+.logo { display: inline-flex; align-items: baseline; gap: 7px; margin-bottom: 26px; justify-content: center; }
+.logoKicker { font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.logoScript { font-family: var(--font-script); font-size: 2rem; line-height: 1; color: var(--accent); }
+.title { font-size: 1.7rem; margin-bottom: 8px; }
+.desc { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 24px; }
+.form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+.fullBtn { width: 100%; justify-content: center; margin-top: 8px; }
+.error { font-size: 0.82rem; color: var(--brick-deep); font-weight: 500; }
+.successBox { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.successIcon { display: flex; justify-content: center; color: var(--accent); }
+.successTitle { font-size: 1.8rem; }
+.successDesc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; margin-bottom: 8px; }
