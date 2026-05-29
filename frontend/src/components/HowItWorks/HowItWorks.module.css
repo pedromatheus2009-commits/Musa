@@ -1,55 +1,43 @@
-.section { background: var(--black-soft); }
-.header { text-align: center; margin-bottom: 60px; }
-.eyebrow {
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--wine-light);
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-.title { color: var(--white); }
-.subtitle { max-width: 480px; margin: 16px auto 0; font-size: 0.95rem; }
+.section { background: var(--bg-alt); }
+.header { text-align: center; margin-bottom: 56px; }
+.title { margin: 16px 0 12px; }
+.subtitle { max-width: 480px; margin: 0 auto; font-size: 0.96rem; color: var(--ink-soft); }
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 26px;
 }
 .card {
-  background: var(--black-card);
-  border: 1px solid rgba(201,168,130,0.1);
-  border-radius: var(--radius-md);
-  padding: 36px 28px;
   position: relative;
-  transition: border-color var(--transition), transform var(--transition);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 38px 30px;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
-.card:hover { border-color: rgba(139,44,74,0.4); transform: translateY(-4px); }
+.card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: var(--shadow-card); }
 .number {
+  display: block;
   font-family: var(--font-serif);
-  font-size: 4rem;
+  font-size: 3.6rem;
   font-weight: 300;
-  color: rgba(139,44,74,0.25);
+  color: var(--blush);
   line-height: 1;
+  margin-bottom: 8px;
+}
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--blush-soft);
+  color: var(--accent);
   margin-bottom: 16px;
 }
-.icon { font-size: 2rem; margin-bottom: 16px; }
-.cardTitle {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  color: var(--white);
-  margin-bottom: 10px;
-}
-.cardDesc { font-size: 0.88rem; color: var(--white-muted); line-height: 1.7; }
-.accent {
-  position: absolute;
-  top: 28px;
-  right: 28px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--wine);
-  opacity: 0.5;
-}
+.cardTitle { font-size: 1.3rem; margin-bottom: 10px; }
+.cardDesc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7; }
 
 @media (max-width: 768px) {
   .grid { grid-template-columns: 1fr; }

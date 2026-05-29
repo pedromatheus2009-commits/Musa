@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { profilesService } from '../../services/profiles.service'
+import SectionLabel from '../brand/SectionLabel'
+import Selo from '../brand/Selo'
 import styles from './AnnounceSection.module.css'
 
 const benefits = [
-  'Perfil visível para milhares de clientes em todo o Brasil',
+  'Perfil visível para clientes em todo o Brasil',
   'Contato direto via WhatsApp, sem intermediários',
   'Filtros de busca por categoria e cidade',
   'Cadastro gratuito — sem taxa de adesão',
@@ -46,11 +48,11 @@ function AnnounceForm({ onSuccess, onAuthRequired }) {
         </div>
         <div className="form-group">
           <label>Cidade</label>
-          <input value={form.cidade} onChange={set('cidade')} placeholder="São Paulo, SP" />
+          <input value={form.cidade} onChange={set('cidade')} placeholder="Sorocaba, SP" />
         </div>
         <div className="form-group">
           <label>WhatsApp</label>
-          <input value={form.whatsapp} onChange={set('whatsapp')} placeholder="5511999999999" />
+          <input value={form.whatsapp} onChange={set('whatsapp')} placeholder="5515999999999" />
         </div>
       </div>
       <div className={`form-group ${styles.formFull}`}>
@@ -83,16 +85,16 @@ export default function AnnounceSection({ onAuthRequired }) {
       <div className="container">
         <div className={styles.inner}>
           <div>
-            <p className={styles.eyebrow}>Para profissionais</p>
-            <h2 className={styles.title}>Faça parte da MUSA</h2>
+            <SectionLabel>Para profissionais</SectionLabel>
+            <h2 className={styles.title}>Faça parte da vitrine</h2>
             <p className={styles.desc}>
-              Junte-se às centenas de mulheres profissionais que já usam a MUSA para
-              expandir sua presença digital e conquistar novos clientes.
+              Junte-se às mulheres profissionais que usam a Casa Musa para expandir
+              sua presença e conquistar novos clientes.
             </p>
             <ul className={styles.benefits}>
               {benefits.map((b) => (
                 <li key={b} className={styles.benefit}>
-                  <span className={styles.checkIcon}>✦</span>
+                  <span className={styles.checkIcon}><Selo kind="star" size={15} /></span>
                   {b}
                 </li>
               ))}
@@ -102,9 +104,9 @@ export default function AnnounceSection({ onAuthRequired }) {
           <div className={styles.formCard}>
             {success ? (
               <div className={styles.successMsg}>
-                <div className={styles.successIcon}>✦</div>
+                <div className={styles.successIcon}><Selo kind="heart" size={40} /></div>
                 <h3 className={styles.successTitle}>Perfil criado!</h3>
-                <p>Seu perfil já está visível na vitrine da MUSA.</p>
+                <p>Seu perfil já está na vitrine da Casa Musa.</p>
               </div>
             ) : (
               <>

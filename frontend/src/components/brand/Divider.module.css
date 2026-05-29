@@ -1,0 +1,12 @@
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0;
+}
+.line {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, transparent, var(--gold-soft) 30%, var(--gold-soft) 70%, transparent);
+}
+.selo { color: var(--gold); }

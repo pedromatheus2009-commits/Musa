@@ -1,0 +1,19 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.text { white-space: nowrap; }
+.rule {
+  display: block;
+  width: 38px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold));
+}
+.align_center { justify-content: center; }
+.align_center .rule:first-child { background: linear-gradient(to left, transparent, var(--gold)); }

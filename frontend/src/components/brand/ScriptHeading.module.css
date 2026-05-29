@@ -1,0 +1,15 @@
+.script {
+  display: block;
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1;
+  animation: scriptDraw 0.8s ease both;
+}
+.sm { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+.md { font-size: clamp(2rem, 5vw, 3rem); }
+.lg { font-size: clamp(2.8rem, 8vw, 5.2rem); }
+
+.tone_brick { color: var(--accent); }
+.tone_wine  { color: var(--accent-2); }
+.tone_ink   { color: var(--ink); }
+.tone_gold  { color: var(--gold); }

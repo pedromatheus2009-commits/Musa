@@ -1,3 +1,7 @@
+import SectionLabel from '../brand/SectionLabel'
+import Cartouche from '../brand/Cartouche'
+import ScriptHeading from '../brand/ScriptHeading'
+import Selo from '../brand/Selo'
 import styles from './About.module.css'
 
 export default function About() {
@@ -6,30 +10,30 @@ export default function About() {
       <div className="container">
         <div className={styles.inner}>
           <div>
-            <p className={styles.eyebrow}>Nossa história</p>
-            <h2 className={styles.title}>Nossa Missão</h2>
+            <SectionLabel>Nossa história</SectionLabel>
+            <h2 className={styles.title}>Uma casa feita de mulheres</h2>
             <p className={styles.body}>
-              A MUSA nasceu da crença de que mulheres talentosas merecem uma plataforma
-              que as coloque em destaque. Em um mercado onde a visibilidade ainda é um
-              desafio para profissionais femininas, criamos um espaço exclusivo para
-              que seu talento seja visto, valorizado e contratado.
+              A Casa Musa nasceu para ser um espaço onde mulheres se encontram, aprendem e
+              brilham. Entre oficinas, jantares e rodas de conversa, criamos um lugar afetivo
+              em Sorocaba — e uma vitrine para que talentos femininos sejam vistos e valorizados.
             </p>
             <p className={styles.body}>
-              Aqui não há algoritmos que escondem. Não há taxas que pesam. Apenas
-              uma vitrine limpa e elegante para que você brilhe do jeito que merece.
+              Aqui não há algoritmos que escondem nem taxas que pesam. Apenas mulheres
+              apoiando mulheres, com elegância e cuidado.
             </p>
             <blockquote className={styles.quote}>
-              "Cada mulher na MUSA é extraordinária — e o mundo precisa saber disso."
+              "Quando mulheres se apoiam, o mundo fica mais bonito, criativo e justo."
             </blockquote>
           </div>
           <div className={styles.right}>
-            <div className={styles.statCard}>
-              <div className={styles.statNum}>500+</div>
-              <div className={styles.statLabel}>Profissionais cadastradas</div>
-            </div>
+            <Cartouche variant="dotted" tone="gold" className={styles.card}>
+              <div className={styles.cardSelo}><Selo kind="heart" size={34} /></div>
+              <ScriptHeading size="md" tone="brick" align="center" as="span">Musa</ScriptHeading>
+              <p className={styles.cardLabel}>Sorocaba/SP · desde 2024</p>
+            </Cartouche>
             <div className={styles.missionCard}>
-              Acreditamos que quando mulheres se apoiam, o mundo fica mais bonito,
-              criativo e justo — e a MUSA é o nosso jeito de tornar isso realidade.
+              Acreditamos no encontro: toda semana, novas oficinas e experiências para
+              viver de pertinho a comunidade da Musa.
             </div>
           </div>
         </div>

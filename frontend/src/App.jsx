@@ -49,6 +49,7 @@ function AppContent() {
         />
       )}
 
+      <div key={location.pathname} className="route-fade">
       <Routes>
         <Route path="/" element={<Home onAuthRequired={() => setAuthOpen(true)} />} />
         <Route path="/profissionais" element={<Profissionais />} />
@@ -63,6 +64,7 @@ function AppContent() {
         <Route path="/sucesso" element={<Sucesso />} />
         <Route path="*" element={<Home onAuthRequired={() => setAuthOpen(true)} />} />
       </Routes>
+      </div>
 
       {!isBare && <Footer />}
       <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />

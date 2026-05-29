@@ -1,0 +1,24 @@
+.cartouche {
+  --frame: var(--ornament);
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 48px);
+  box-shadow: var(--shadow-card);
+}
+.cartouche::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: calc(var(--radius-lg) - 6px);
+  pointer-events: none;
+}
+.double::after {
+  border: 1px solid var(--frame);
+  box-shadow: inset 0 0 0 4px var(--surface), inset 0 0 0 5px color-mix(in srgb, var(--frame) 45%, transparent);
+}
+.dotted::after { border: 2px dotted var(--frame); }
+.plain::after { display: none; }
+
+.tone_gold { --frame: var(--gold); }
+.tone_brick { --frame: var(--accent); }

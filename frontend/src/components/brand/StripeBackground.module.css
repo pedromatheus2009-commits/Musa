@@ -1,0 +1,21 @@
+.stripes {
+  position: absolute;
+  inset: -3%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--brick) 0 var(--w1, 38px),
+    var(--blush) var(--w1, 38px) var(--w2, 70px)
+  );
+  transform: skewX(-1.2deg);
+  opacity: var(--stripe-opacity, 0.12);
+  filter: saturate(1.05);
+  animation: stripeIn 0.9s ease both;
+}
+.wide   { --w1: 38px; --w2: 72px; }
+.narrow { --w1: 22px; --w2: 42px; }
+.fade {
+  -webkit-mask: radial-gradient(125% 105% at 50% 0%, #000 32%, transparent 80%);
+          mask: radial-gradient(125% 105% at 50% 0%, #000 32%, transparent 80%);
+}

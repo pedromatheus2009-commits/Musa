@@ -1,0 +1,8 @@
+.selo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.pop { animation: sealPop 0.6s ease both; }
