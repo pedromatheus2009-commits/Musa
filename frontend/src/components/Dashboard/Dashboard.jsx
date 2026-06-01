@@ -10,6 +10,7 @@ import AdminProfiles from './tabs/AdminProfiles'
 import AdminAnalytics from './tabs/AdminAnalytics'
 import AdminPartnerships from './tabs/AdminPartnerships'
 import AdminEventos from './tabs/AdminEventos'
+import AdminIndicadores from './tabs/AdminIndicadores'
 import MeuBau from './tabs/MeuBau'
 import AdminBau from './tabs/AdminBau'
 import Assinatura from './tabs/Assinatura'
@@ -24,6 +25,7 @@ const USER_TABS = [
 
 const ADMIN_TABS = [
   { id: 'eventos', label: 'Oficinas & Eventos', icon: '🎟', adminOnly: true },
+  { id: 'indicadores', label: 'Indicadores', icon: '📊', adminOnly: true },
   { id: 'modbau', label: 'Moderar Baú', icon: '🛒', adminOnly: true },
   { id: 'feed', label: 'Feed da Casa', icon: '✦', adminOnly: true },
   { id: 'perfis', label: 'Gerenciar Perfis', icon: '✔', adminOnly: true },
@@ -113,6 +115,7 @@ export default function Dashboard({ onClose, onOpenAnnounce }) {
               {tab === 'meubau' && <MeuBau />}
               {tab === 'assinatura' && <Assinatura />}
               {tab === 'eventos' && user?.isAdmin && <AdminEventos />}
+              {tab === 'indicadores' && user?.isAdmin && <AdminIndicadores />}
               {tab === 'modbau' && user?.isAdmin && <AdminBau />}
               {tab === 'feed' && user?.isAdmin && <AdminFeed />}
               {tab === 'perfis' && user?.isAdmin && <AdminProfiles />}
